@@ -1,2 +1,1 @@
-# login
-Java/Spring Boot/Angular
+Java/Spring Boot/Angular playground.
