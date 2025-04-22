@@ -1,1 +1,1 @@
-Java/Spring Boot/Angular login PofC application.
+Java 17 / Spring Boot 3 / Angular 19 login single page application.
