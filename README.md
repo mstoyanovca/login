@@ -3,3 +3,9 @@ git clone
 npm install  
 npm start
 npx kill-port 4200
+
+- template forms
+- router
+- app initializer
+- auth guard
+- interceptor
