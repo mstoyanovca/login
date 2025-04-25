@@ -1,4 +1,4 @@
-Java 17 / Spring Boot 3 / Angular 19 login single page application.
+Java 17/Spring Boot 3/Bootstrap 5/Angular 19 single page application.
 git clone
 npm install
 npm start
