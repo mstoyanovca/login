@@ -2,7 +2,7 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-
+import { inject } from "@angular/core";
 import { AccountService, AlertService } from '@app/_services';
 import { MustMatch } from '@app/_helpers';
 
@@ -11,6 +11,7 @@ import { MustMatch } from '@app/_helpers';
     standalone: false
 })
 export class UpdateComponent implements OnInit {
+    private accountService = inject(AccountService);
     account = this.accountService.accountValue!;
     form!: FormGroup;
     submitting = false;
@@ -21,7 +22,7 @@ export class UpdateComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private accountService: AccountService,
+        //private accountService: AccountService,
         private alertService: AlertService
     ) { }
 

@@ -1,5 +1,5 @@
 ﻿import { Component } from '@angular/core';
-
+import { inject } from "@angular/core";
 import { AccountService } from '@app/_services';
 
 @Component({
@@ -7,7 +7,6 @@ import { AccountService } from '@app/_services';
     standalone: false
 })
 export class DetailsComponent {
+    private accountService = inject(AccountService);
     account = this.accountService.accountValue;
-
-    constructor(private accountService: AccountService) { }
 }
