@@ -1,6 +1,5 @@
 import { enableProdMode, APP_INITIALIZER, importProvidersFrom } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
 import { appInitializer, JwtInterceptor, ErrorInterceptor, fakeBackendProvider } from './app/_helpers';
 import { AccountService } from './app/_services';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
@@ -15,7 +14,6 @@ bootstrapApplication(AppComponent, {
         { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AccountService] },
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-        // provider used to create fake backend
         fakeBackendProvider,
         provideHttpClient(withInterceptorsFromDi())
     ]
