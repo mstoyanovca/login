@@ -1,5 +1,22 @@
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, APP_INITIALIZER, importProvidersFrom } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { AppModule } from './app/app.module';
 
-platformBrowserDynamic().bootstrapModule(AppModule).catch(err => console.error(err));
+import { appInitializer, JwtInterceptor, ErrorInterceptor, fakeBackendProvider } from './app/_helpers';
+import { AccountService } from './app/_services';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app/app-routing.module';
+import { AppComponent } from './app/app.component';
+
+bootstrapApplication(AppComponent, {
+    providers: [
+        importProvidersFrom(BrowserModule, ReactiveFormsModule, AppRoutingModule),
+        { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AccountService] },
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        // provider used to create fake backend
+        fakeBackendProvider,
+        provideHttpClient(withInterceptorsFromDi())
+    ]
+}).catch(err => console.error(err));

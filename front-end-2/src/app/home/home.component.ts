@@ -2,10 +2,7 @@
 import { AccountService } from '@app/_services';
 import { inject } from "@angular/core";
 
-@Component({
-    templateUrl: 'home.component.html',
-    standalone: false
-})
+@Component({ templateUrl: 'home.component.html' })
 export class HomeComponent {
     private accountService = inject(AccountService);
     account = this.accountService.accountValue;

@@ -1,10 +1,12 @@
 ﻿import { Component } from '@angular/core';
 import { inject } from "@angular/core";
 import { AccountService } from '@app/_services';
+import { NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
     templateUrl: 'details.component.html',
-    standalone: false
+    imports: [NgIf, RouterLink]
 })
 export class DetailsComponent {
     private accountService = inject(AccountService);

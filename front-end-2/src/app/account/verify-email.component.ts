@@ -1,8 +1,9 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 import { AccountService, AlertService } from '@app/_services';
+import { NgIf } from '@angular/common';
 
 enum EmailStatus {
     Verifying,
@@ -11,7 +12,7 @@ enum EmailStatus {
 
 @Component({
     templateUrl: 'verify-email.component.html',
-    standalone: false
+    imports: [NgIf, RouterLink]
 })
 export class VerifyEmailComponent implements OnInit {
     EmailStatus = EmailStatus;

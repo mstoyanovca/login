@@ -1,12 +1,14 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { first, finalize } from 'rxjs/operators';
 
 import { AccountService, AlertService } from '@app/_services';
+import { NgClass, NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
     templateUrl: 'forgot-password.component.html',
-    standalone: false
+    imports: [ReactiveFormsModule, NgClass, NgIf, RouterLink]
 })
 export class ForgotPasswordComponent implements OnInit {
     form!: FormGroup;
