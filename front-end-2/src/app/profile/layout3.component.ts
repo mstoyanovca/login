@@ -2,7 +2,8 @@
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-    templateUrl: 'layout.component.html',
+    selector: 'layout3',
+    templateUrl: 'layout3.component.html',
     imports: [RouterOutlet]
 })
-export class LayoutComponent { }
+export class Layout3Component { }

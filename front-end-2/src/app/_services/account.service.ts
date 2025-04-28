@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
+
+import { environment } from '@environments/environment';
 import { Account } from '@app/_models';
 
-// TODO: read from a config
-const baseUrl = `http://localhost:4000/accounts`;
+const baseUrl = `${environment.apiUrl}/accounts`;
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {

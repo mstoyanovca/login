@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { inject } from "@angular/core";
+
 import { AccountService, AlertService } from '@app/_services';
 import { MustMatch } from '@app/_helpers';
 import { NgClass, NgIf } from '@angular/common';
@@ -23,7 +24,6 @@ export class UpdateComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        //private accountService: AccountService,
         private alertService: AlertService
     ) { }
 
