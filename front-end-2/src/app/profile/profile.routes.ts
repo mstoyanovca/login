@@ -7,10 +7,10 @@ import { UpdateComponent } from './update.component';
 
 export const routes: Routes = [
     {
-        path: '', component: LayoutComponent,
+        path: 'profile', component: LayoutComponent, canActivate: [AuthGuard],
         children: [
-            { path: '', component: DetailsComponent, canActivate: [AuthGuard] },
-            { path: 'update', component: UpdateComponent, canActivate: [AuthGuard] }
+            { path: 'profile', component: DetailsComponent, canActivate: [AuthGuard] },
+            { path: 'profile/update', component: UpdateComponent, canActivate: [AuthGuard] }
         ]
     }
 ];
