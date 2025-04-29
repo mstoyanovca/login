@@ -2,7 +2,7 @@
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { first, finalize } from 'rxjs/operators';
 
-import { AccountService, AlertService } from '@app/_services';
+import { AccountService, AlertService } from 'src/app//_services';
 import { NgClass, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 

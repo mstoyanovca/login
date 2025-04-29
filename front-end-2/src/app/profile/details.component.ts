@@ -1,7 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { inject } from "@angular/core";
 
-import { AccountService } from '@app/_services';
+import { AccountService } from 'src/app/_services';
 import { NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
