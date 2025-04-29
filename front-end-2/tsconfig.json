@@ -5,8 +5,7 @@
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,
-    // TODO: turn this to true:
-    "noPropertyAccessFromIndexSignature": false,
+    "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
