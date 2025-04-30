@@ -4,8 +4,8 @@ import { first, finalize } from 'rxjs/operators';
 import { NgClass, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
-import { AccountService } from '@app/_services/account.service';
-import { AlertService } from '@app/_services/alert.service';
+import { AccountService } from '@app/service/account.service';
+import { AlertService } from '@app/service/alert.service';
 
 @Component({
     templateUrl: 'forgot-password.component.html',

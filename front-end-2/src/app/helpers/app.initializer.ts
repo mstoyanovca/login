@@ -1,6 +1,6 @@
 import { catchError, of } from 'rxjs';
 
-import { AccountService } from '@app/_services/account.service';
+import { AccountService } from '@app/service/account.service';
 
 export function appInitializer(accountService: AccountService) {
     return () => accountService.refreshToken()

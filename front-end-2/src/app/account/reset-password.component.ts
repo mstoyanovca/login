@@ -4,9 +4,9 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { first } from 'rxjs/operators';
 import { NgIf, NgClass } from '@angular/common';
 
-import { AccountService } from '@app/_services/account.service';
-import { AlertService } from '@app/_services/alert.service';
-import { MustMatch } from '@app/_helpers/must-match.validator';
+import { AccountService } from '@app/service/account.service';
+import { AlertService } from '@app/service/alert.service';
+import { MustMatch } from '@app/helpers/must-match.validator';
 
 enum TokenStatus {
     Validating,

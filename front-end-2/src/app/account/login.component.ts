@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { first } from 'rxjs/operators';
 import { NgClass, NgIf } from '@angular/common';
 
-import { AccountService } from '@app/_services/account.service';
-import { AlertService } from '@app/_services/alert.service';
+import { AccountService } from '@app/service/account.service';
+import { AlertService } from '@app/service/alert.service';
 
 @Component({
     templateUrl: 'login.component.html',

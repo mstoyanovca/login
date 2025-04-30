@@ -1,7 +1,7 @@
 ﻿import { Component } from '@angular/core';
 import { inject } from "@angular/core";
 
-import { AccountService } from '@app/_services/account.service';
+import { AccountService } from '@app/service/account.service';
 
 @Component({ templateUrl: 'home.component.html' })
 export class HomeComponent {

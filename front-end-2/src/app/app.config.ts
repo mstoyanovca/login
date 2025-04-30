@@ -1,8 +1,8 @@
 import { provideRouter, Routes } from '@angular/router';
 import { ApplicationConfig } from '@angular/core';
 
-import { AuthGuard } from '@app/_helpers/auth.guard';
-import { Role } from '@app/_models/role';
+import { AuthGuard } from '@app/helpers/auth.guard';
+import { Role } from '@app/model/role';
 import { HomeComponent } from '@app/home/home.component';
 import { SubNavComponent } from '@app/admin/subnav.component';
 import { Layout1Component } from '@app/account/layout1.component';

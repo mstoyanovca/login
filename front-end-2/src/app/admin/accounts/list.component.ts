@@ -3,7 +3,7 @@ import { first } from 'rxjs/operators';
 import { RouterLink } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 
-import { AccountService } from '@app/_services/account.service';
+import { AccountService } from '@app/service/account.service';
 
 @Component({
     templateUrl: 'list.component.html',

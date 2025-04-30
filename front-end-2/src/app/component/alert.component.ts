@@ -3,8 +3,8 @@ import { Router, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { NgIf, NgFor } from '@angular/common';
 
-import { Alert, AlertType } from '@app/_models/alert';
-import { AlertService } from '@app/_services/alert.service';
+import { Alert, AlertType } from '@app/model/alert';
+import { AlertService } from '@app/service/alert.service';
 
 @Component({
     selector: 'alert',

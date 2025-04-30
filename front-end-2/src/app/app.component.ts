@@ -2,9 +2,9 @@
 import { NgClass, NgIf } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
-import { AccountService } from '@app/_services/account.service';
-import { Account } from '@app/_models/account';
-import { Role } from '@app/_models/role';
+import { AccountService } from '@app/service/account.service';
+import { Account } from '@app/model/account';
+import { Role } from '@app/model/role';
 import { AlertComponent } from '@app/component/alert.component';
 
 @Component({
