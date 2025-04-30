@@ -1,10 +1,11 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { first, finalize } from 'rxjs/operators';
-
-import { AccountService, AlertService } from 'src/app//_services';
 import { NgClass, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
+
+import { AccountService } from '@app/_services/account.service';
+import { AlertService } from '@app/_services/alert.service';
 
 @Component({
     templateUrl: 'forgot-password.component.html',

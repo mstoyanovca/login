@@ -4,8 +4,9 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { first } from 'rxjs/operators';
 import { inject } from "@angular/core";
 
-import { AccountService, AlertService } from 'src/app/_services';
-import { MustMatch } from 'src/app/_helpers';
+import { AccountService } from '@app/_services/account.service';
+import { AlertService } from '@app/_services/alert.service';
+import { MustMatch } from '@app/_helpers/must-match.validator';
 import { NgClass, NgIf } from '@angular/common';
 
 @Component({

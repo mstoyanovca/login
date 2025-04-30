@@ -2,10 +2,11 @@
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { first } from 'rxjs/operators';
-
-import { AccountService, AlertService } from 'src/app/_services';
-import { MustMatch } from 'src/app/_helpers';
 import { NgIf, NgClass } from '@angular/common';
+
+import { AccountService } from '@app/_services/account.service';
+import { AlertService } from '@app/_services/alert.service';
+import { MustMatch } from '@app/_helpers/must-match.validator';
 
 enum TokenStatus {
     Validating,

@@ -1,23 +1,23 @@
 import { provideRouter, Routes } from '@angular/router';
-import { AuthGuard } from './_helpers';
-import { Role } from './_models';
 import { ApplicationConfig } from '@angular/core';
 
-import { HomeComponent } from './home';
-import { SubNavComponent } from './admin/subnav.component';
-import { Layout1Component } from './account/layout1.component';
-import { Layout2Component } from './admin/layout2.component';
-import { Layout3Component } from './profile/layout3.component';
-import { OverviewComponent } from './admin/overview.component';
-import { LoginComponent } from './account/login.component';
-import { RegisterComponent } from './account/register.component';
-import { VerifyEmailComponent } from './account/verify-email.component';
-import { ForgotPasswordComponent } from './account/forgot-password.component';
-import { ResetPasswordComponent } from './account/reset-password.component';
-import { ListComponent } from './admin/accounts/list.component';
-import { AddEditComponent } from './admin/accounts/add-edit.component';
-import { DetailsComponent } from './profile/details.component';
-import { UpdateComponent } from './profile/update.component';
+import { AuthGuard } from '@app/_helpers/auth.guard';
+import { Role } from '@app/_models/role';
+import { HomeComponent } from '@app/home/home.component';
+import { SubNavComponent } from '@app/admin/subnav.component';
+import { Layout1Component } from '@app/account/layout1.component';
+import { Layout2Component } from '@app/admin/layout2.component';
+import { Layout3Component } from '@app/profile/layout3.component';
+import { OverviewComponent } from '@app/admin/overview.component';
+import { LoginComponent } from '@app/account/login.component';
+import { RegisterComponent } from '@app/account/register.component';
+import { VerifyEmailComponent } from '@app/account/verify-email.component';
+import { ForgotPasswordComponent } from '@app/account/forgot-password.component';
+import { ResetPasswordComponent } from '@app/account/reset-password.component';
+import { ListComponent } from '@app/admin/accounts/list.component';
+import { AddEditComponent } from '@app/admin/accounts/add-edit.component';
+import { DetailsComponent } from '@app/profile/details.component';
+import { UpdateComponent } from '@app/profile/update.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },

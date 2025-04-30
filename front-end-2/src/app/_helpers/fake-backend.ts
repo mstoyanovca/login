@@ -3,8 +3,8 @@ import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTT
 import { Observable, of, throwError } from 'rxjs';
 import { delay, materialize, dematerialize } from 'rxjs/operators';
 
-import { AlertService } from 'src/app/_services';
-import { Role } from 'src/app/_models';
+import { AlertService } from '@app/_services/alert.service';
+import { Role } from '@app/_models/role';
 
 // array in local storage for accounts
 const accountsKey = 'angular-15-signup-verification-boilerplate-accounts';
