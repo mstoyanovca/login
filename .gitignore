@@ -1,6 +1,8 @@
 .git/
 .gradle/
 .idea/
+.vscode/
+build/
 front-end/.angular
 front-end/node_modules
 front-end-2/.angular
