@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import "@fontsource/merienda"
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [RouterLink, RouterOutlet],
   templateUrl: 'login.component.html',
   styleUrl: 'login.component.css'
 })
