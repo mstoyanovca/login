@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import "@fontsource/merienda"
 
 @Component({
   selector: 'app-login',
