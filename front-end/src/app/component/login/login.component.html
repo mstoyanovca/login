@@ -1,22 +1,20 @@
 <div class="container-fluid">
     <form>
         <div class="form-group m-4">
-            <h4>Login, or create an account.</h4>
+            <h4>Login, or create an account</h4>
             <p>This is my Angular 19, Bootstrap 5, Java 17 and Spring Boot 3 playground.</p>
         </div>
         <div class="form-group mx-4 col col-lg-4 col-md-6">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control form-control-sm" id="exampleInputEmail1"
-                   aria-describedby="emailHelp"
-                   placeholder="Enter email">
+            <label for="email">Email</label>
+            <input type="email" class="form-control form-control-sm" id="email">
         </div>
         <div class="form-group mx-4 mt-2 col col-lg-4 col-md-6">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control form-control-sm" id="exampleInputPassword1"
-                   placeholder="Password">
+            <label for="password">Password</label>
+            <input type="password" class="form-control form-control-sm" id="password">
         </div>
         <button type="submit" class="btn btn-primary ms-4 mt-3">Submit</button>
         <a routerLink="register" class="btn btn-link mt-3">Register</a>
+        <a routerLink="forgotPassword" class="btn btn-link mt-3">Forgot password</a>
     </form>
 
     <nav class="navbar fixed-bottom bg-body-tertiary">
