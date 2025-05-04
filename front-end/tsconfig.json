@@ -8,6 +8,9 @@
       ],
       "@component/*": [
         "app/component/*"
+      ],
+      "@model/*": [
+        "app/model/*"
       ]
     },
     "outDir": "./dist/out-tsc",
