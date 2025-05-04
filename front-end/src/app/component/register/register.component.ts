@@ -14,12 +14,13 @@ import { User } from '@model/user';
 export class RegisterComponent {
   showPassword: boolean = false;
   user = new User(0, '', '', '', '', false);
+  confirmedPassword: string = '';
 
   onSpanClick() {
     this.showPassword = !this.showPassword;
   }
 
   onSubmit() {
-    console.log("In onSubmit()");
+    console.log("user.password = " + this.user.password + ", confirmedPassword = " + this.confirmedPassword);
   }
 }
