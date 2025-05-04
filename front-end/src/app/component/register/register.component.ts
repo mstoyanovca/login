@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 import { User } from '@model/user';
 
 @Component({
   selector: 'app-register',
-  imports: [FontAwesomeModule, FormsModule, CommonModule],
+  imports: [FontAwesomeModule, FormsModule, CommonModule, RouterLink],
   templateUrl: 'register.component.html',
   styleUrl: 'register.component.css'
 })

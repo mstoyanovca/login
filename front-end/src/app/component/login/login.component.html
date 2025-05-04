@@ -1,9 +1,30 @@
 <div class="container-fluid">
-    <h4 class="mx-4 mt-4">Login, or create an account</h4>
-    <p class="mx-4">This is my Angular 19, Bootstrap 5, Java 17 and Spring Boot 3 playground.</p>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary mx-4">
+        <div class="container-fluid">
+            <a class="navbar-brand heading">Login</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav nav">
+                    <li class="nav-item">
+                        <a routerLink="/register" class="nav-link">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/forgot-password" class="nav-link">Forgot password</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="m-4">
+        <p>Login, or create an account, to view the secret page.</p>
+        <p>This is my Angular 19, Bootstrap 5, Java 17 and Spring Boot 3 playground.</p>
+    </div>
 
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-        <div class="form-group mx-4 col col-lg-4 col-md-6">
+        <div class="mx-4 col col-lg-4 col-md-6">
             <label for="email">Email</label>
             <input type="email" class="form-control form-control-sm" id="email" name="email" [(ngModel)]="user.email" #email="ngModel" required email>
             @if (email.invalid && email.touched) {
@@ -40,11 +61,7 @@
                 }
             }
         </div>
-        <div class="form-group mx-4 mt-3 col col-lg-4 col-md-6">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <a routerLink="forgot-password" class="btn btn-link pe-0 float-end">Forgot password</a>
-            <a routerLink="register" class="btn btn-link float-end">Register</a>
-        </div>
+        <button type="submit" class="btn btn-primary mx-4 mt-3">Submit</button>
     </form>
 
     <nav class="navbar fixed-bottom bg-body-tertiary">
