@@ -11,12 +11,12 @@ import { User } from '@model/user';
   styleUrl: 'register.component.css'
 })
 export class RegisterComponent {
-  show: boolean = false;
+  showPassword: boolean = false;
   user = new User(1, 'Martin', 'Stoyanov', 'mstoyanovca@gmail.com', 'password', true);
 
-  showPassword() {
-    this.show = !this.show;
-    console.log("In showPassword()");
+  onSpanClick() {
+    this.showPassword = !this.showPassword;
+    console.log("showPassword = " + this.showPassword);
   }
 
   onSubmit() {

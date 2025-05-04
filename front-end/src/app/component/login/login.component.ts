@@ -12,7 +12,13 @@ import { User } from '@model/user';
   styleUrl: 'login.component.css'
 })
 export class LoginComponent {
+  showPassword: boolean = false;
   user = new User(1, 'Martin', 'Stoyanov', 'mstoyanovca@gmail.com', 'password', true);
+
+  onSpanClick() {
+    this.showPassword = !this.showPassword;
+    console.log("showPassword = " + this.showPassword);
+  }
 
   onSubmit() {
     console.log("In onSubmit()");
