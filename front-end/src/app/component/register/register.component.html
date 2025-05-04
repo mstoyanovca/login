@@ -78,7 +78,7 @@
         <div class="mx-4 mt-2 col col-lg-4 col-md-6">
             <label for="confirmPassword">Confirm password</label>
             <div class="input-group">
-                <input [type]="showPassword ? 'text' : 'password'" class="form-control form-control-sm" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmedPassword" #confirmPassword="ngModel" required minlength="6">
+                <input [type]="showPassword ? 'text' : 'password'" class="form-control form-control-sm" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmedPassword" #confirmPassword="ngModel" required minlength="6" passwordMatch>
                 <span class="input-group-text" (click)="onSpanClick()">
                     <i [ngClass]="showPassword ? 'fa fa-regular fa-eye' : 'fa fa-regular fa-eye-slash'"></i>
                 </span>
@@ -92,6 +92,11 @@
                 @if (confirmPassword.hasError('minlength')) {
                     <div class="alert alert-danger alert-small mt-2">
                         Password min length is 6 characters
+                    </div>
+                }
+                @if (confirmPassword.hasError('passwordMismatch')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        Passwords must match
                     </div>
                 }
             }
