@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <h4 class="m-4">Register</h4>
 
-    <form #registerForm="ngForm">
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
         <div class="form-group mx-4 col col-lg-4 col-md-6">
             <label for="firstName">First name</label>
             <input type="text" class="form-control form-control-sm" id="firstName" name="firstName" [(ngModel)]="user.firstName" required>

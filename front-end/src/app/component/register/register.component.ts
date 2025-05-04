@@ -16,9 +16,11 @@ export class RegisterComponent {
 
   showPassword() {
     this.show = !this.show;
+    console.log("In showPassword()");
   }
 
   onSubmit() {
-      // this.submitted = true;
-    }
+    console.log("In onSubmit()");
+    // this.submitted = true;
+  }
 }
