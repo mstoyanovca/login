@@ -10,6 +10,6 @@ export const routes: Routes = [
   { path: 'home', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'forgotPassword', component: ForgotPasswordComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
