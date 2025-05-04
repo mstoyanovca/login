@@ -4,13 +4,16 @@
     "baseUrl": "./src",
     "paths": {
       "@app/*": [
-        "app/*"
+        "./app/*"
       ],
       "@component/*": [
-        "app/component/*"
+        "./app/component/*"
       ],
       "@model/*": [
-        "app/model/*"
+        "./app/model/*"
+      ],
+      "@service/*": [
+        "./app/service/*"
       ]
     },
     "outDir": "./dist/out-tsc",

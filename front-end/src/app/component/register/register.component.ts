@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
 
 import { User } from '@model/user';
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule, FontAwesomeModule],
+  imports: [FontAwesomeModule, FormsModule],
   templateUrl: 'register.component.html',
   styleUrl: 'register.component.css'
 })
@@ -17,4 +17,8 @@ export class RegisterComponent {
   showPassword() {
     this.show = !this.show;
   }
+
+  onSubmit() {
+      // this.submitted = true;
+    }
 }

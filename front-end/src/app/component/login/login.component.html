@@ -1,17 +1,15 @@
 <div class="container-fluid">
-    <form>
-        <div class="form-group m-4">
-            <h4>Login, or create an account</h4>
-            <p>This is my Angular 19, Bootstrap 5, Java 17 and Spring Boot 3 playground.</p>
-        </div>
+    <h4 class="mx-4 mt-4">Login, or create an account</h4>
+    <p class="mx-4">This is my Angular 19, Bootstrap 5, Java 17 and Spring Boot 3 playground.</p>
+    <form #loginForm="ngForm">
         <div class="form-group mx-4 col col-lg-4 col-md-6">
             <label for="email">Email</label>
-            <input type="email" class="form-control form-control-sm" id="email">
+            <input type="email" class="form-control form-control-sm" [(ngModel)]="user.email" id="email" name="email" required>
         </div>
         <div class="mx-4 mt-2 col col-lg-4 col-md-6">
             <label for="password">Password</label>
             <div class="input-group">
-                <input type="password" class="form-control form-control-sm" id="password">
+                <input type="password" class="form-control form-control-sm" id="password" required>
                 <span class="input-group-text">
                     <i class="fa fa-regular fa-eye-slash"></i>
                 </span>
