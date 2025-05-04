@@ -14,16 +14,13 @@ import { User } from '@model/user';
 })
 export class LoginComponent {
   showPassword: boolean = false;
-  // user = new User(1, 'Martin', 'Stoyanov', 'mstoyanovca@gmail.com', 'password', true);
   user = new User(0, '', '', '', '', false);
 
   onSpanClick() {
     this.showPassword = !this.showPassword;
-    console.log("showPassword = " + this.showPassword);
   }
 
   onSubmit() {
     console.log("In onSubmit()");
-    // this.submitted = true;
   }
 }
