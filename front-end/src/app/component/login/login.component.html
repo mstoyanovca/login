@@ -4,12 +4,12 @@
     <form #loginForm="ngForm">
         <div class="form-group mx-4 col col-lg-4 col-md-6">
             <label for="email">Email</label>
-            <input type="email" class="form-control form-control-sm" [(ngModel)]="user.email" id="email" name="email" required>
+            <input type="email" class="form-control form-control-sm" id="email" name="email" [(ngModel)]="user.email" required>
         </div>
         <div class="mx-4 mt-2 col col-lg-4 col-md-6">
             <label for="password">Password</label>
             <div class="input-group">
-                <input type="password" class="form-control form-control-sm" id="password" required>
+                <input type="password" class="form-control form-control-sm" id="password" name="password" [(ngModel)]="user.password" required>
                 <span class="input-group-text">
                     <i class="fa fa-regular fa-eye-slash"></i>
                 </span>
