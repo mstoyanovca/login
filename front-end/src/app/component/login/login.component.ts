@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -8,7 +7,7 @@ import { User } from '@model/user';
 
 @Component({
   selector: 'app-login',
-  imports: [FontAwesomeModule, FormsModule, CommonModule, RouterLink],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: 'login.component.html',
   styleUrl: 'login.component.css'
 })
@@ -21,6 +20,6 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    console.log("In onSubmit()");
+    console.log("user.password = " + this.user.password);
   }
 }
