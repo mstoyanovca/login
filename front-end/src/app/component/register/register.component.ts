@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { User } from '@model/user';
+import { PasswordMatchDirective } from '@shared/password-match.directive';
 
 @Component({
   selector: 'app-register',
-  imports: [FontAwesomeModule, FormsModule, CommonModule, RouterLink],
+  imports: [FontAwesomeModule, FormsModule, CommonModule, RouterLink, PasswordMatchDirective],
   templateUrl: 'register.component.html',
   styleUrl: 'register.component.css'
 })
