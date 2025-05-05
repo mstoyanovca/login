@@ -1,48 +1,24 @@
-import { Directive, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
-
-export function passwordMatchValidator(controlName: string, matchingControlName: string): ValidatorFn {
-  console.log("controlName = " + controlName);
-  console.log("matchingControlName = " + matchingControlName);
-  return (controls: AbstractControl): ValidationErrors | null => {
-    const control = controls.get(controlName);
-    const matchingControl = controls.get(matchingControlName);
-    console.log("control = " + JSON.stringify(control));
-
-    if (control === null || matchingControl === null || matchingControl.errors?.['mustMatch']) {
-      return null;
-    }
-
-    if (control.value !== matchingControl.value) {
-      matchingControl.setErrors({ mustMatch: true });
-      return { mustMatch: true };
-    } else {
-      matchingControl.setErrors(null);
-      return null;
-    }
-  };
-}
+import { Directive, Input, forwardRef } from '@angular/core';
+import { NG_VALIDATORS, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Directive({
-  selector: '[passwordsMatcher]',
-  providers: [{ provide: NG_VALIDATORS, useExisting: PasswordMatchDirective, multi: true }],
+  selector: '[passwordMatch]',
+  providers: [{
+    provide: NG_VALIDATORS,
+    useExisting: forwardRef(() => PasswordMatchDirective),
+    multi: true
+  }]
 })
-export class PasswordMatchDirective implements Validator, OnChanges {
-  @Input('passwordsMatcher') matchingControlName: string = '';
-  @Input() controlName: string = '';
-  validateFn: ValidatorFn = () => null;
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['matchingControlName'] || changes['controlName']) {
-      this.validateFn = passwordMatchValidator(this.controlName, this.matchingControlName);
-    }
-  }
-
-  registerOnValidatorChange(fn: () => void): void {
-    // do nothing
-  }
+export class PasswordMatchDirective implements Validator {
+  @Input('passwordMatch') passwordField: string = '';
 
   validate(control: AbstractControl): ValidationErrors | null {
-    return this.validateFn;
+    const password = control.root.get(this.passwordField)?.value;
+    const confirmedPassword = control.value;
+
+    if (password && confirmedPassword && !confirmedPassword.errors?.['passwordMismatch'] && password !== confirmedPassword) {
+      return { passwordMismatch: true };
+    }
+    return null;
   }
 }
