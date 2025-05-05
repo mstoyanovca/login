@@ -3,6 +3,7 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorF
 
 export function passwordMatchValidator(controlName: string, matchingControlName: string): ValidatorFn {
   console.log("controlName = " + controlName);
+  console.log("matchingControlName = " + matchingControlName);
   return (controls: AbstractControl): ValidationErrors | null => {
     const control = controls.get(controlName);
     const matchingControl = controls.get(matchingControlName);
