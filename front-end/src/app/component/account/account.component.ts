@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { User } from '@model/user';
-import { PasswordMatchDirective } from '@shared/password-match.directive';
+import { PasswordMatchDirective } from '@directive/password-match.directive';
 
 @Component({
     selector: 'app-account',

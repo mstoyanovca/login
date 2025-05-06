@@ -5,12 +5,13 @@ import { RegisterComponent } from '@component/register/register.component';
 import { ForgotPasswordComponent } from '@component/forgot-password/forgot-password.component';
 import { AccountComponent } from '@component/account/account.component';
 import { PageNotFoundComponent } from '@component/page-not-found/page-not-found.component';
+import { AuthGuard } from '@service/authentication/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'account', component: AccountComponent },
+  { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
   { path: '**', component: PageNotFoundComponent }
 ];
