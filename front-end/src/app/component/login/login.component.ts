@@ -25,24 +25,5 @@ export class LoginComponent {
 
     onSubmit() {
         this.cryptoService.test();
-        /* const id = 1234567890  // account.id
-        const name = "Martin Stoyanov";  // account.firstName + " " + account.lastName
-        const role = "admin";  // account.role = "admin"/"user"
-        // 15 minutes:
-        const expiry = Math.round(new Date(Date.now() + 15*60*1000).getTime() / 1000);
-        const payload = {
-            "id": id,
-            "name": name,
-            "role": role,
-            "expiry": expiry
-        };
-
-        const jwt = this.cryptoService.encrypt(JSON.stringify(payload));
-        jwt.then(s =>
-            {
-                console.log(s);
-                this.cryptoService.decrypt(s).then(s => console.log(s));
-            }
-        ); */
   }
 }
