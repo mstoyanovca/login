@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Buffer } from 'buffer';
 
+// the Node.js crypto module is not directly accessible in the browser, where Angular runs;
+// use the web Crypto API;
 @Injectable({
   providedIn: 'root',
 })
