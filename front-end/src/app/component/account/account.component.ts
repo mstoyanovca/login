@@ -14,7 +14,7 @@ import { PasswordMatchDirective } from '@directive/password-match.directive';
 })
 export class AccountComponent {
     showPassword: boolean = false;
-    user = new User(0, '', '', '', '', false);
+    user = new User(0, '', '', '', '', 'admin', false);
     confirmedPassword: string = '';
 
     onSpanClick() {
