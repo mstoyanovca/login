@@ -2,11 +2,9 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-
 import { JwtService } from '@service/jwt/jwt.service';
+
 import { User } from '@model/user';
-import { Buffer } from 'buffer';
-import { SignJWT } from 'jose';
 
 @Component({
   selector: 'app-login',
@@ -15,24 +13,15 @@ import { SignJWT } from 'jose';
   styleUrl: 'login.component.css'
 })
 export class LoginComponent {
-    private jwtService = inject(JwtService);
     showPassword = false;
     user = new User(0, '', '', '', '', 'admin', false);
+    private jwtService = inject(JwtService);
 
     onSpanClick() {
         this.showPassword = !this.showPassword;
     }
 
     onSubmit() {
-        const header = {
-            alg: "HS256",
-            typ: "JWT"
-        };
-        console.log("header = " + JSON.stringify(header));
-        const headerBase64 = Buffer.from(JSON.stringify(header), 'utf-8').toString('base64');
-        const headerBase64Url = this.toBase64Url(headerBase64);
-        console.log("header = " + headerBase64Url);
-
         const user = new User(1234567890, 'Martin', 'Stoyanov', 'mstoyanovca@gmail.com', 'password', 'admin', false);
         const expiry = Math.round(new Date(Date.now() + 15*60*1000).getTime() / 1000);
         const payload = {
@@ -41,15 +30,9 @@ export class LoginComponent {
             role: user.role,
             expiry: expiry
         };
-        console.log("payload = " + JSON.stringify(payload));
-        const payloadBase64 = Buffer.from(JSON.stringify(payload), 'utf-8').toString('base64');
-        const payloadBase64Url = this.toBase64Url(payloadBase64);
-        console.log("payload = " + payloadBase64Url);
 
-        const signature = new SignJWT(payload)
-            .setProtectedHeader({ alg: 'HS256' })
-            .sign(new TextEncoder().encode('secretKey'));
-        signature.then(s => console.log("signature = " + JSON.stringify(s)));
+        const jwt = this.jwtService.generateToken(payload);
+        jwt.then(token => this.jwtService.decodeToken(token));
     }
 
     private toBase64Url(base64: string): string {
