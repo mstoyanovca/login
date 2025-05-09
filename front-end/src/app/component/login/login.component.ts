@@ -34,9 +34,8 @@ export class LoginComponent {
         const jwt = this.jwtService.generate(payload);
         jwt.then(t => {
             console.log("token = " + t);
-            this.jwtService.decode(t).then(dt =>
-                console.log("decodedToken = " + JSON.stringify(dt)));
-                console.log("hasExpired = " + this.jwtService.hasExpired(t));
+            this.jwtService.decode(t).then(dt => console.log("decodedToken = " + JSON.stringify(dt)));
+            this.jwtService.hasExpired(t).then(e => console.log("hasExpired = " + JSON.stringify(e)));
         });
     }
 }
