@@ -31,13 +31,12 @@ export class LoginComponent {
             expiry: expiry
         };
 
-        const jwt = this.jwtService.generateToken(payload);
-        jwt.then(token => this.jwtService.decodeToken(token));
-    }
-
-    private toBase64Url(base64: string): string {
-        return base64.replace(/\+/g, '-')
-            .replace(/\//g, '_')
-            .replace(/=+$/, '');
+        const jwt = this.jwtService.generate(payload);
+        jwt.then(t => {
+            console.log("token = " + t);
+            this.jwtService.decode(t).then(dt =>
+                console.log("decodedToken = " + JSON.stringify(dt)));
+                console.log("hasExpired = " + this.jwtService.hasExpired(t));
+        });
     }
 }

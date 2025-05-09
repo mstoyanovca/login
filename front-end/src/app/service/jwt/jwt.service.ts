@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Buffer } from 'buffer';
-import { SignJWT, decodeJwt } from 'jose';
+import { SignJWT, decodeJwt, JWTPayload, jwtVerify } from 'jose';
 
 import { User } from '@model/user';
 
@@ -10,17 +10,17 @@ import { User } from '@model/user';
 export class JwtService {
     private key = 'my-secret-key';
 
-    async generateToken(payload: any): Promise<string> {
-        const jwt = new SignJWT(payload)
+    async generate(payload: any): Promise<string> {
+        return new SignJWT(payload)
             .setProtectedHeader({ alg: 'HS256', typ: "JWT" })
             .sign(new TextEncoder().encode(this.key));
-        jwt.then(s => console.log("jwt = " + JSON.stringify(s)));
-        return jwt;
     }
 
-    async decodeToken(token: string): Promise<string> {
-        const decodedToken = decodeJwt(token);
-        console.log("decodedToken = " + JSON.stringify(decodedToken));
+    async decode(token: string): Promise<JWTPayload> {
         return decodeJwt(token);
+    }
+
+    hasExpired(token: string): boolean {
+        return (decodeJwt(token)['expiry'] as number) < Math.round(new Date(Date.now()).getTime() / 1000);
     }
 }
