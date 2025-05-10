@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { JwtService } from '@service/jwt/jwt.service';
+import { HttpClient } from '@angular/common/http';
 
 import { User } from '@model/user';
 
@@ -16,6 +17,7 @@ export class LoginComponent {
     showPassword = false;
     user = new User(0, '', '', '', '', 'admin', false);
     private jwtService = inject(JwtService);
+    private httpClient = inject(HttpClient);
 
     onSpanClick() {
         this.showPassword = !this.showPassword;
