@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { JwtService } from '@service/jwt/jwt.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { User } from '@model/user';
 
@@ -24,7 +24,7 @@ export class LoginComponent {
     }
 
     onSubmit() {
-        const user = new User(1234567890, 'Martin', 'Stoyanov', 'mstoyanovca@gmail.com', 'password', 'admin', false);
+        /* const user = new User(1234567890, 'Martin', 'Stoyanov', 'mstoyanovca@gmail.com', 'password', 'admin', false);
         const expiry = Math.round(new Date(Date.now() + 15*60*1000).getTime() / 1000);
         const payload = {
             id: user.id,
@@ -38,6 +38,8 @@ export class LoginComponent {
             console.log("token = " + t);
             this.jwtService.decode(t).then(dt => console.log("decodedToken = " + JSON.stringify(dt)));
             this.jwtService.hasExpired(t).then(e => console.log("hasExpired = " + JSON.stringify(e)));
-        });
+        }); */
+
+        this.httpClient.get('http://localhost:8080/test').subscribe(data => console.log('data = ', data));
     }
 }
