@@ -24,7 +24,7 @@ export class LoginComponent {
     }
 
     onSubmit() {
-        /* const user = new User(1234567890, 'Martin', 'Stoyanov', 'mstoyanovca@gmail.com', 'password', 'admin', false);
+        /* const user = new User(1234567890, 'Martin', 'Stoyanov', 'abc@gmail.com', 'password', 'admin', false);
         const expiry = Math.round(new Date(Date.now() + 15*60*1000).getTime() / 1000);
         const payload = {
             id: user.id,
@@ -40,6 +40,6 @@ export class LoginComponent {
             this.jwtService.hasExpired(t).then(e => console.log("hasExpired = " + JSON.stringify(e)));
         }); */
 
-        this.httpClient.get('http://localhost:8080/test').subscribe(data => console.log('data = ', data));
+        this.httpClient.get('http://localhost:8080/login').subscribe(data => console.log('data = ', data));
     }
 }

@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
     @GetMapping("/login")
     public User login() {
-        return new User(1234567890L, "Martin Stoyanov");
+        return new User(1234567890L, "Martin", "Stoyanov", "abc@gmail.com", "password", "admin", false);
     }
 }
