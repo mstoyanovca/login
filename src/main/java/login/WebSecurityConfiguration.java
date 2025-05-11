@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.Collections;
@@ -21,13 +20,12 @@ public class WebSecurityConfiguration {
         httpSecurity
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
-                                .requestMatchers("/login/**").permitAll()
-                                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                                .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+                                .requestMatchers("/login/**", "/register/**", "/forgot-password/**").permitAll()
+                                .requestMatchers("/account/**").hasAnyRole("USER", "ADMIN")
                                 .anyRequest().authenticated())
                 .csrf((csrf) -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()))
+                        .ignoringRequestMatchers("/login/**", "/register/**", "/forgot-password/**"))
                 .sessionManagement(httpSecuritySessionManagementConfigurer ->
                         httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(
