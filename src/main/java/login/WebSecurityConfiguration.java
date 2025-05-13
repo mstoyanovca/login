@@ -19,9 +19,7 @@ public class WebSecurityConfiguration {
         httpSecurity
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
-                                .requestMatchers("/login/**", "/register/**", "/forgot-password/**", "/h2-console/**").permitAll()
-                                // TODO: remove in PROD:
-                                .requestMatchers("/h2-console/**").permitAll()
+                                .requestMatchers("/login/**", "/register/**", "/forgot-password/**").permitAll()
                                 .requestMatchers("/account/**").hasAnyRole("USER", "ADMIN")
                                 .anyRequest().authenticated())
                 .sessionManagement(httpSecuritySessionManagementConfigurer ->
@@ -33,7 +31,7 @@ public class WebSecurityConfiguration {
                             CorsConfiguration config = new CorsConfiguration();
                             config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
                             config.setAllowedMethods(Collections.singletonList("*"));
-                            config.setAllowedHeaders(Collections.singletonList("Authorization"));
+                            config.setAllowedHeaders(Collections.singletonList("*"));
                             return config;
                         }));
 

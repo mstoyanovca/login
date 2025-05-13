@@ -40,6 +40,7 @@ export class LoginComponent {
             this.jwtService.hasExpired(t).then(e => console.log("hasExpired = " + JSON.stringify(e)));
         }); */
 
-        this.httpClient.post('http://localhost:8080/login', this.user).subscribe(res => console.log('res = ', res));
+        this.httpClient.post('http://localhost:8080/login', this.user, { responseType: 'text' }).subscribe(res => console.log('res = ', res));
+        // this.httpClient.get('http://localhost:8080/register', { responseType: 'text' }).subscribe(res => console.log('res = ', res));
     }
 }
