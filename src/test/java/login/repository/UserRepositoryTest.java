@@ -1,6 +1,5 @@
-package login.service;
+package login.repository;
 
-import login.dao.UserRepository;
 import login.model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
-public class UserServiceTest {
+public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
     private User testUser;

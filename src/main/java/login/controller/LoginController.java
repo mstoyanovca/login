@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
     @PostMapping("/login")
-    public ResponseEntity<User> postLogin(@RequestBody User user) {
+    public ResponseEntity<User> login(@RequestBody User user) {
         if (user.getEmail().equals("mstoyanovca@gmail.com") && user.getPassword().equals("password")) {
             return new ResponseEntity<>(
                     new User(1234567890L, "Martin", "Stoyanov", user.getEmail(), "", "admin", true),
