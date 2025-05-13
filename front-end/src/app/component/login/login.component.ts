@@ -24,23 +24,6 @@ export class LoginComponent {
     }
 
     onSubmit() {
-        /* const user = new User(1234567890, 'Martin', 'Stoyanov', 'abc@gmail.com', 'password', 'admin', false);
-        const expiry = Math.round(new Date(Date.now() + 15*60*1000).getTime() / 1000);
-        const payload = {
-            id: user.id,
-            name: user.firstName + " " + user.lastName,
-            role: user.role,
-            expiry: expiry
-        };
-
-        const jwt = this.jwtService.generate(payload);
-        jwt.then(t => {
-            console.log("token = " + t);
-            this.jwtService.decode(t).then(dt => console.log("decodedToken = " + JSON.stringify(dt)));
-            this.jwtService.hasExpired(t).then(e => console.log("hasExpired = " + JSON.stringify(e)));
-        }); */
-
-        this.httpClient.post('http://localhost:8080/login', this.user, { responseType: 'text' }).subscribe(res => console.log('res = ', res));
-        // this.httpClient.get('http://localhost:8080/register', { responseType: 'text' }).subscribe(res => console.log('res = ', res));
+        this.httpClient.post('http://localhost:8080/login', this.user, { responseType: 'text' }).subscribe(jwt => console.log('jwt = ', jwt));
     }
 }
