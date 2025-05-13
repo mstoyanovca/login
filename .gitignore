@@ -2,9 +2,7 @@
 .gradle/
 .idea/
 build/
+data/
 front-end/.angular
 front-end/node_modules
 front-end/package.lock.json
-front-end-2/.angular
-front-end-2/node_modules
-front-end-2/package.lock.json

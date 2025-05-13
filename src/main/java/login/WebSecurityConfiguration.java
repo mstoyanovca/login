@@ -4,13 +4,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.Collections;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -20,23 +19,21 @@ public class WebSecurityConfiguration {
         httpSecurity
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
-                                .requestMatchers("/login/**", "/register/**", "/forgot-password/**").permitAll()
+                                .requestMatchers("/login/**", "/register/**", "/forgot-password/**", "/h2-console/**").permitAll()
+                                // TODO: remove in PROD:
+                                .requestMatchers("/h2-console/**").permitAll()
                                 .requestMatchers("/account/**").hasAnyRole("USER", "ADMIN")
                                 .anyRequest().authenticated())
-                .csrf((csrf) -> csrf
-                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                        .ignoringRequestMatchers("/login/**", "/register/**", "/forgot-password/**"))
                 .sessionManagement(httpSecuritySessionManagementConfigurer ->
                         httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .csrf(AbstractHttpConfigurer::disable)
+                // TODO: remove in PROD:
                 .cors(
                         httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource((request) -> {
                             CorsConfiguration config = new CorsConfiguration();
                             config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
-                            config.setAllowedHeaders(Collections.singletonList("*"));
                             config.setAllowedMethods(Collections.singletonList("*"));
-                            config.setExposedHeaders(List.of("Authorization"));
-                            config.setAllowCredentials(true);
-                            config.setMaxAge(3600L);
+                            config.setAllowedHeaders(Collections.singletonList("Authorization"));
                             return config;
                         }));
 

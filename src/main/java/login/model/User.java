@@ -1,10 +1,19 @@
 package login.model;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
+@Entity
+@Table(name = "\"user\"")
+// user is a preserved word in H2
 public class User {
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastName;
     private String email;
     private String password;
