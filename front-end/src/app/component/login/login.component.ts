@@ -24,6 +24,6 @@ export class LoginComponent {
     onSubmit() {
         this.httpClient
             .post('http://localhost:8080/login', this.user, { responseType: 'text' })
-            .subscribe(jwt => console.log('jwt = ', jwt));
+            .subscribe(jwt => localStorage.setItem('jwt', jwt));
     }
 }
