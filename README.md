@@ -9,6 +9,5 @@ ng test --main ./src/app/service/jwt/jwt.service.spec.ts
 
 - template forms
 - router
-- app initializer
 - auth guard
-- interceptor
+- jwt interceptor
