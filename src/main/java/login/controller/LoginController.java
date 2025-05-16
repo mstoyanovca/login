@@ -27,7 +27,7 @@ public class LoginController {
         if (user.getEmail().equals("mstoyanovca@gmail.com") && user.getPassword().equals("password")) {
             return ResponseEntity.ok(jwtService.generate(user.getEmail()));
         } else {
-            return new ResponseEntity<>("User not found", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("User not found", HttpStatus.UNAUTHORIZED);
         }
     }
 }

@@ -7,7 +7,13 @@ npm start
 npx kill-port 4200
 ng test --main ./src/app/service/jwt/jwt.service.spec.ts
 
-- template forms
+front end features:
+- template forms, validation, custom directive
 - router
 - auth guard
 - jwt interceptor
+
+beck end features:
+- spring data (hibernate/jpa)
+- spring security
+- JWT
