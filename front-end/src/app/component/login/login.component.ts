@@ -24,6 +24,12 @@ export class LoginComponent {
     onSubmit() {
         this.httpClient
             .post('http://localhost:8080/login', this.user, { responseType: 'text' })
-            .subscribe(jwt => localStorage.setItem('jwt', jwt));
+            .subscribe(
+                jwt => {
+                    console.log("logged in");
+                    localStorage.setItem('jwt', jwt);
+                },
+                error => console.log("error")
+            );
     }
 }
