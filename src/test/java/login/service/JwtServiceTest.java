@@ -12,21 +12,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class JwtServiceTest {
     @Autowired
     private JwtService jwtService;
-    private final String username = "abc@gmail.com";
+    private final String email = "abc@gmail.com";
     private String jwtToken;
 
     @BeforeEach
     public void beforeEach() {
-        jwtToken = jwtService.generate(username);
+        jwtToken = jwtService.generate(email);
     }
 
     @Test
-    void validateTest() {
-        assertTrue(jwtService.validate(jwtToken));
+    void isValidTest() {
+        assertTrue(jwtService.isValid(jwtToken));
     }
 
     @Test
     void getUsernameTest() {
-        assertEquals(username, jwtService.getUsername(jwtToken));
+        assertEquals(email, jwtService.getEmail(jwtToken));
     }
 }

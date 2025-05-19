@@ -26,16 +26,16 @@ public class JwtService {
         this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generate(String username) {
+    public String generate(String email) {
         return Jwts.builder()
-                .subject(username)
+                .subject(email)
                 .issuedAt(new Date())
                 .expiration(new Date(new Date().getTime() + jwtExpiration))
                 .signWith(key, Jwts.SIG.HS256)
                 .compact();
     }
 
-    public boolean validate(String token) {
+    public boolean isValid(String token) {
         try {
             Jwts.parser().verifyWith(key).build().parseSignedClaims(token);
             return true;
@@ -53,7 +53,7 @@ public class JwtService {
         return false;
     }
 
-    public String getUsername(String token) {
+    public String getEmail(String token) {
         return Jwts.parser()
                 .verifyWith(key).build()
                 .parseSignedClaims(token)
