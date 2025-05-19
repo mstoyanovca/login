@@ -39,7 +39,7 @@ public class UserRepositoryTest {
 
     @Test
     void findByEmail() {
-        User savedUser = userRepository.findByEmail(testUser.getEmail());
+        User savedUser = userRepository.findByEmail(testUser.getEmail()).get();
         assertEquals(testUser.getFirstName(), savedUser.getFirstName());
         assertEquals(testUser.getLastName(), savedUser.getLastName());
         assertEquals(testUser.getEmail(), savedUser.getEmail());

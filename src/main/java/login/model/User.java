@@ -20,6 +20,10 @@ public class User {
     private String role;
     private boolean active;
 
+    // do not remove the no-argument constructor:
+    public User() {
+    }
+
     public User(Long id, String firstName, String lastName, String email, String password, String role, boolean active) {
         this.id = id;
         this.firstName = firstName;
