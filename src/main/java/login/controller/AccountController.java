@@ -24,6 +24,10 @@ public class AccountController {
     public ResponseEntity<User> account() {
         return userRepository
                 .findByEmail(getCurrentUserId())
+                .map(u -> {
+                    u.setPassword("");
+                    return u;
+                })
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
     }
