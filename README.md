@@ -1,4 +1,4 @@
-Java 17/Spring Boot 3/Bootstrap 5/Angular 19 single page application, created for training purposes, to keep up with the latest in Spring Boot and Angular.
+Java 17/Spring Boot 3/Bootstrap 5/Angular 19 single page application, created to keep up with the latest in Spring Boot and Angular.
 
 useful commands:
 git clone
