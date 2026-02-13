@@ -13,7 +13,7 @@ front end features:
 - auth guard
 - jwt interceptor
 
-beck end features:
+back end features:
 - spring data (hibernate/jpa)
 - spring security
 - JWT
