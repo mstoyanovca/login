@@ -8,6 +8,7 @@ git clone
 npm install  
 npm start
 npx kill-port 4200
+ng serve --open
 ng test --main ./src/app/service/jwt/jwt.service.spec.ts
 
 frontend features:
