@@ -1,4 +1,7 @@
-Java 17/Spring Boot 3/Bootstrap 5/Angular 19 single page application, created to keep up with the latest in Spring Boot and Angular.
+
+## Login
+
+Java 25/Spring Boot 4/Bootstrap 5/Angular 19 single page application, created to keep up with the latest in Spring Boot and Angular.
 
 useful commands:
 git clone
@@ -7,13 +10,13 @@ npm start
 npx kill-port 4200
 ng test --main ./src/app/service/jwt/jwt.service.spec.ts
 
-front end features:
+frontend features:
 - template forms, validation, custom directive
 - router
 - auth guard
-- jwt interceptor
+- JWT interceptor
 
-back end features:
-- spring data (hibernate/jpa)
-- spring security
+backend features:
+- Spring Data
+- Spring Security
 - JWT
