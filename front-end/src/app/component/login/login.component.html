@@ -66,6 +66,11 @@
                     </div>
                 }
             }
+            @if (email.valid && password.valid && loginError) {
+                <div class="alert alert-danger alert-small mt-2">
+                    Invalid email or password
+                </div>
+            }
         </div>
         <button type="submit" class="btn btn-primary mx-4 mt-3">Login</button>
     </form>

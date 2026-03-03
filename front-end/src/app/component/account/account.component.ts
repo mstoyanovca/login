@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 import { User } from '@model/user';
@@ -15,8 +15,9 @@ import { PasswordMatchDirective } from '@directive/password-match.directive';
 })
 export class AccountComponent {
     private httpClient = inject(HttpClient);
+    private router = inject(Router);
     showPassword: boolean = false;
-    user = new User(0, '', '', '', '', 'admin', false);
+    user = new User(0, '', '', '', '', '', false);
     confirmedPassword: string = '';
 
     onSpanClick() {
@@ -26,7 +27,13 @@ export class AccountComponent {
     ngOnInit(): void {
         this.httpClient
             .get<User>('http://localhost:8080/account')
-            .subscribe(user => this.user = user);
+            .subscribe(user => {
+                if(user == null) {
+                    this.router.navigate(['/login']);
+                } else {
+                    this.user = user;
+                }
+            });
     }
 
     onSubmit() {
