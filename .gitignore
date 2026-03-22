@@ -1,5 +1,7 @@
-.gradle/
 .git/
+.gradle/
 .idea/
+build/
+data/
 front-end/.angular
 front-end/node_modules
