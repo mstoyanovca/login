@@ -1,9 +1,17 @@
 import { Routes } from '@angular/router';
-import { FirstComponent } from './first/first.component';
-import { SecondComponent } from './second/second.component';
+
+import { LoginComponent } from '@component/login/login.component';
+import { RegisterComponent } from '@component/register/register.component';
+import { ForgotPasswordComponent } from '@component/forgot-password/forgot-password.component';
+import { AccountComponent } from '@component/account/account.component';
+import { PageNotFoundComponent } from '@component/page-not-found/page-not-found.component';
+import { AuthGuard } from '@service/authentication/auth.guard';
 
 export const routes: Routes = [
-  { path: 'home', redirectTo: '/' },
-  { path: 'first-component', component: FirstComponent },
-  { path: 'second-component', component: SecondComponent },
+  { path: '', component: LoginComponent, pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
+  { path: '**', component: PageNotFoundComponent }
 ];

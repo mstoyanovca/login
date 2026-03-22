@@ -1,0 +1,35 @@
+package login.controller;
+
+import login.model.User;
+import login.service.JwtService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class LoginController {
+    private final JwtService jwtService;
+    private final AuthenticationManager authManager;
+
+    @Autowired
+    public LoginController(JwtService jwtService, AuthenticationManager authManager) {
+        this.jwtService = jwtService;
+        this.authManager = authManager;
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody User user) {
+        try {
+            authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+            return ResponseEntity.ok(jwtService.generate(user.getEmail()));
+        } catch (AuthenticationException e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+}

@@ -5,3 +5,4 @@ build/
 data/
 front-end/.angular
 front-end/node_modules
+front-end/package.lock.json

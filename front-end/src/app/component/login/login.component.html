@@ -1,0 +1,83 @@
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary mx-4">
+        <div class="container-fluid">
+            <a class="navbar-brand heading">
+                <img src="login-24.png" width="24" height="24" class="d-inline-block align-text-top me-3">
+                Login
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav nav">
+                    <li class="nav-item">
+                        <a routerLink="/account" class="nav-link">Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/register" class="nav-link">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/forgot-password" class="nav-link">Forgot password</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="m-4">
+        <p>Login, or create an account.</p>
+        <p>This is my Angular 19, Bootstrap 5, Java 25 and Spring Boot 4 playground.</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <div class="mx-4 col col-lg-4 col-md-6">
+            <label for="email">Email</label>
+            <input type="email" class="form-control form-control-sm" id="email" name="email" [(ngModel)]="user.email" #email="ngModel" required email>
+            @if (email.invalid && email.touched) {
+                @if (email.hasError('required')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        Email is required
+                    </div>
+                }
+                @if (email.hasError('email')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        Email is invalid
+                    </div>
+                }
+            }
+        </div>
+        <div class="mx-4 mt-2 col col-lg-4 col-md-6">
+            <label for="password">Password</label>
+            <div class="input-group">
+                <input [type]="showPassword ? 'text' : 'password'" class="form-control form-control-sm" id="password" name="password" [(ngModel)]="user.password" #password="ngModel" required minlength="6">
+                <span class="input-group-text" (click)="onSpanClick()">
+                    <i [ngClass]="showPassword ? 'fa fa-regular fa-eye' : 'fa fa-regular fa-eye-slash'"></i>
+                </span>
+            </div>
+            @if (password.invalid && password.touched) {
+                @if (password.hasError('required')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        Password is required
+                    </div>
+                }
+                @if (password.hasError('minlength')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        Password min length is 6 characters
+                    </div>
+                }
+            }
+            @if (email.valid && password.valid && loginError) {
+                <div class="alert alert-danger alert-small mt-2">
+                    Invalid email or password
+                </div>
+            }
+        </div>
+        <button type="submit" class="btn btn-primary mx-4 mt-3">Login</button>
+    </form>
+
+    <nav class="navbar fixed-bottom bg-body-tertiary">
+        <div class="container-fluid justify-content-center">
+            <a class="navbar-brand" href="#">Written by Martin Stoyanov, April 2025</a>
+        </div>
+    </nav>
+</div>
