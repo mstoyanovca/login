@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "login"
-version = "0.0.1-SNAPSHOT"
+version = "26.1.1-SNAPSHOT"
 
 java {
     toolchain {
