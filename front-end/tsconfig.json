@@ -1,28 +1,27 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./src",
     "paths": {
       "@app/*": [
-        "./app/*"
+        "./src/app/*"
       ],
       "@component/*": [
-        "./app/component/*"
+        "./src/app/component/*"
       ],
       "@model/*": [
-        "./app/model/*"
+        "./src/app/model/*"
       ],
       "@service/*": [
-        "./app/service/*"
+        "./src/app/service/*"
       ],
       "@directive/*": [
-        "./app/directive/*"
+        "./src/app/directive/*"
       ],
       "@environment/*": [
-        "./app/environments/*"
+        "./src/app/environments/*"
       ],
       "jose/jwt/*": [
-        "node_modules/jose/dist/browser/jwt/*"
+        "./src/node_modules/jose/dist/browser/jwt/*"
       ]
     },
     "outDir": "./dist/out-tsc",
