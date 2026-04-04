@@ -1,18 +1,19 @@
-import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import {Component, inject} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {Router, RouterLink} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
 
-import { User } from '@model/user';
+import {User} from '@model/user';
 
 @Component({
-  selector: 'app-login',
-  imports: [FormsModule, CommonModule, RouterLink],
-  templateUrl: 'login.component.html',
-  styleUrl: 'login.component.css'
+    selector: 'app-login',
+    imports: [FormsModule, CommonModule, RouterLink],
+    templateUrl: 'login.component.html',
+    styleUrl: 'login.component.css'
 })
 export class LoginComponent {
+    loggedIn = false;
     showPassword = false;
     loginError = false;
     user = new User(0, '', '', '', '', 'admin', false);
@@ -25,15 +26,19 @@ export class LoginComponent {
 
     onSubmit() {
         this.httpClient
-            .post('http://localhost:8080/login', this.user, { responseType: 'text' })
-            .subscribe(
-                jwt => {
-                    this.loginError = false;
+            .post('http://localhost:8080/login', this.user, {responseType: 'text'})
+            .subscribe({
+                next: (jwt) => {
                     console.log("logged in");
+                    this.loginError = false;
+                    this.loggedIn = true;
                     localStorage.setItem('jwt', jwt);
                     this.router.navigate(['/account']);
                 },
-                error => this.loginError = true
-            );
+                error: (_) => {
+                    console.log("login error");
+                    this.loginError = true;
+                }
+            });
     }
 }

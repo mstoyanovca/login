@@ -30,7 +30,7 @@ public class RegisterController {
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
                 userRepository.save(user);
                 user.setPassword("******");
-                return ResponseEntity.ok(user);
+                return ResponseEntity.status(HttpStatus.CREATED).body(user);
             }
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

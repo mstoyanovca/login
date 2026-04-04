@@ -1,11 +1,10 @@
-import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import {Component, inject} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {Router, RouterLink} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
 
-import { User } from '@model/user';
-import { PasswordMatchDirective } from '@directive/password-match.directive';
+import {User} from '@model/user';
 
 @Component({
     selector: 'app-account',
@@ -28,7 +27,7 @@ export class AccountComponent {
         this.httpClient
             .get<User>('http://localhost:8080/account')
             .subscribe(user => {
-                if(user == null) {
+                if (user == null) {
                     this.router.navigate(['/login']);
                 } else {
                     this.user = user;

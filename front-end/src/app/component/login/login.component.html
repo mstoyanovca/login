@@ -10,7 +10,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav nav">
-                    <li class="nav-item">
+                    <li class="nav-item" *ngIf="loggedIn">
                         <a routerLink="/account" class="nav-link">Account</a>
                     </li>
                     <li class="nav-item">
@@ -26,7 +26,7 @@
 
     <div class="m-4">
         <p>Login, or create an account.</p>
-        <p>This is my Angular 21, Bootstrap 5, Java 26 and Spring Boot 4 playground.</p>
+        <p>This is my Bootstrap 5, Angular 21, Java 26 and Spring Boot 4 playground.</p>
     </div>
 
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
@@ -68,11 +68,11 @@
             }
             @if (email.valid && password.valid && loginError) {
                 <div class="alert alert-danger alert-small mt-2">
-                    Invalid email or password
+                    Invalid login credentials
                 </div>
             }
         </div>
-        <button type="submit" class="btn btn-primary mx-4 mt-3">Login</button>
+        <button type="submit" class="btn btn-primary mx-4 mt-3" [disabled]="loginForm.invalid">Login</button>
     </form>
 
     <nav class="navbar fixed-bottom bg-body-tertiary">
