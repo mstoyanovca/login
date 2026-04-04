@@ -1,16 +1,18 @@
 import {TestBed} from '@angular/core/testing';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {jwtInterceptor} from './jwt-interceptor';
-import {JwtInterceptor} from "@auth0/angular-jwt";
 
 describe('JwtInterceptor', () => {
-    let service: JwtInterceptor;
 
     beforeEach(() => {
-        TestBed.configureTestingModule({});
-        service = TestBed.inject(jwtInterceptor);
+        TestBed.configureTestingModule({
+            providers: [
+                provideHttpClient(withInterceptors([jwtInterceptor]))
+            ]
+        });
     });
 
     it('should be created', () => {
-        expect(service).toBeTruthy();
+        expect(jwtInterceptor).toBeTruthy();
     });
 });

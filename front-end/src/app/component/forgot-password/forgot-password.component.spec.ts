@@ -1,5 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {provideRouter} from '@angular/router';
+
 import {ForgotPasswordComponent} from './forgot-password.component';
+import {routes} from '@app/app.routes';
 
 describe('ForgotPasswordComponent', () => {
     let component: ForgotPasswordComponent;
@@ -7,7 +10,10 @@ describe('ForgotPasswordComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ForgotPasswordComponent]
+            imports: [ForgotPasswordComponent],
+            providers: [
+                provideRouter(routes)
+            ]
         })
             .compileComponents();
 
