@@ -6,11 +6,11 @@ Java 26/Spring Boot 4/Bootstrap 5/Angular 21 single page application, created to
 
 - git clone from GitHub
 - npm install
+- ng test
 - npm start
-- ng serve --open
 - open at http://localhost:4200/
+- ng serve --open
 - npx kill-port 4200
-- ng test --main ./src/app/service/jwt/jwt.service.spec.ts
 
 ### Frontend Features
 
