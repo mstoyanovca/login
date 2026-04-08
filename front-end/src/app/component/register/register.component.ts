@@ -2,11 +2,11 @@ import {Component, inject} from '@angular/core';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import {RouterLink} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
+import {Router, RouterLink} from '@angular/router';
 
 import {User} from '@model/user';
 import {PasswordMatchDirective} from '@directive/password-match.directive';
+import {AuthService} from '@service/authentication/auth.service';
 
 @Component({
     selector: 'app-register',
@@ -18,22 +18,23 @@ export class RegisterComponent {
     showPassword: boolean = false;
     user = new User(0, '', '', '', '', 'admin', false);
     confirmedPassword: string = '';
-    private httpClient = inject(HttpClient);
+    private authService = inject(AuthService);
+    private router = inject(Router);
 
     onSpanClick() {
         this.showPassword = !this.showPassword;
     }
 
     onSubmit() {
-        this.httpClient
-            .post('http://localhost:8080/register', this.user)
+        this.authService
+            .register(this.user)
             .subscribe({
-                next: (u) => {
+                next: (_) => {
                     // setup response header 201 resource created
-                    console.log("registered a new user " + JSON.stringify(u));
+                    this.router.navigate(['/account']);
                 },
-                error: (e) => {
-                    console.log();
+                error: (error) => {
+                    console.log('registration error: ', error);
                 }
             });
     }

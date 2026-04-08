@@ -2,9 +2,9 @@ import {Component, inject} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
 
 import {User} from '@model/user';
+import {AuthService} from '@service/authentication/auth.service';
 
 @Component({
     selector: 'app-login',
@@ -17,7 +17,7 @@ export class LoginComponent {
     showPassword = false;
     loginError = false;
     user = new User(0, '', '', '', '', 'admin', false);
-    private httpClient = inject(HttpClient);
+    private authService = inject(AuthService);
     private router = inject(Router);
 
     onSpanClick() {
@@ -25,18 +25,15 @@ export class LoginComponent {
     }
 
     onSubmit() {
-        this.httpClient
-            .post('http://localhost:8080/login', this.user, {responseType: 'text'})
+        this.authService.login(this.user)
             .subscribe({
-                next: (jwt) => {
-                    console.log("logged in");
+                next: (_) => {
                     this.loginError = false;
-                    this.loggedIn = true;
-                    localStorage.setItem('jwt', jwt);
+                    this.loggedIn = this.authService.isAuthenticated();
                     this.router.navigate(['/account']);
                 },
-                error: (_) => {
-                    console.log("login error");
+                error: (error) => {
+                    console.log("login error: ", error);
                     this.loginError = true;
                 }
             });
