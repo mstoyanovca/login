@@ -11,7 +11,7 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav nav">
                     <li class="nav-item">
-                        <a routerLink="/login" class="nav-link">Home</a>
+                        <a routerLink="/login" class="nav-link" (click)="logout()">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -23,85 +23,87 @@
             <label for="firstName">First name</label>
             <input type="text" class="form-control form-control-sm" id="firstName" name="firstName" [(ngModel)]="user.firstName" #firstName="ngModel" required>
             @if (firstName.invalid && firstName.touched) {
-            @if (firstName.hasError('required')) {
-            <div class="alert alert-danger alert-small mt-2">
-                First name is required
-            </div>
-            }
+                @if (firstName.hasError('required')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        First name is required
+                    </div>
+                }
             }
         </div>
         <div class="mx-4 mt-2 col col-lg-4 col-md-6">
             <label for="lastName">Last name</label>
             <input type="text" class="form-control form-control-sm" id="lastName" name="lastName" [(ngModel)]="user.lastName" #lastName="ngModel" required>
             @if (lastName.invalid && lastName.touched) {
-            @if (lastName.hasError('required')) {
-            <div class="alert alert-danger alert-small mt-2">
-                Last name is required
-            </div>
-            }
+                @if (lastName.hasError('required')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        Last name is required
+                    </div>
+                }
             }
         </div>
         <div class="mx-4 mt-2 col col-lg-4 col-md-6">
             <label for="email">Email</label>
             <input type="email" class="form-control form-control-sm" id="email" name="email" [(ngModel)]="user.email" #email="ngModel" required email>
             @if (email.invalid && email.touched) {
-            @if (email.hasError('required')) {
-            <div class="alert alert-danger alert-small mt-2">
-                Email is required
-            </div>
-            }
-            @if (email.hasError('email')) {
-            <div class="alert alert-danger alert-small mt-2">
-                Email is invalid
-            </div>
-            }
+                @if (email.hasError('required')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        Email is required
+                    </div>
+                }
+                @if (email.hasError('email')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        Email is invalid
+                    </div>
+                }
             }
         </div>
         <div class="mx-4 mt-2 col col-lg-4 col-md-6">
             <label for="password">Password</label>
             <div class="input-group">
-                <input [type]="showPassword ? 'text' : 'password'" class="form-control form-control-sm" id="password" name="password" [(ngModel)]="user.password" #password="ngModel" required minlength="6">
-                <span class="input-group-text" (click)="onSpanClick()">
-                    <i [ngClass]="showPassword ? 'fa fa-regular fa-eye' : 'fa fa-regular fa-eye-slash'"></i>
+                <input [type]="passwordIsVisible ? 'text' : 'password'" class="form-control form-control-sm" id="password" name="password"
+                       [(ngModel)]="user.password" #password="ngModel" required minlength="6">
+                <span class="input-group-text" (click)="showPassword()">
+                    <i [ngClass]="passwordIsVisible ? 'fa fa-regular fa-eye' : 'fa fa-regular fa-eye-slash'"></i>
                 </span>
             </div>
             @if (password.invalid && password.touched) {
-            @if (password.hasError('required')) {
-            <div class="alert alert-danger alert-small mt-2">
-                Password is required
-            </div>
-            }
-            @if (password.hasError('minlength')) {
-            <div class="alert alert-danger alert-small mt-2">
-                Password min length is 6 characters
-            </div>
-            }
+                @if (password.hasError('required')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        Password is required
+                    </div>
+                }
+                @if (password.hasError('minlength')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        Password min length is 6 characters
+                    </div>
+                }
             }
         </div>
         <div class="mx-4 mt-2 col col-lg-4 col-md-6">
             <label for="confirmPassword">Confirm password</label>
             <div class="input-group">
-                <input [type]="showPassword ? 'text' : 'password'" class="form-control form-control-sm" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmedPassword" #confirmPassword="ngModel" required minlength="6" passwordMatch="password">
-                <span class="input-group-text" (click)="onSpanClick()">
-                    <i [ngClass]="showPassword ? 'fa fa-regular fa-eye' : 'fa fa-regular fa-eye-slash'"></i>
+                <input [type]="passwordIsVisible ? 'text' : 'password'" class="form-control form-control-sm" id="confirmPassword" name="confirmPassword"
+                       [(ngModel)]="confirmedPassword" #confirmPassword="ngModel" required minlength="6" passwordMatch="password">
+                <span class="input-group-text" (click)="showPassword()">
+                    <i [ngClass]="passwordIsVisible ? 'fa fa-regular fa-eye' : 'fa fa-regular fa-eye-slash'"></i>
                 </span>
             </div>
             @if (confirmPassword.invalid && confirmPassword.touched) {
-            @if (confirmPassword.hasError('required')) {
-            <div class="alert alert-danger alert-small mt-2">
-                Password confirmation is required
-            </div>
-            }
-            @if (confirmPassword.hasError('minlength')) {
-            <div class="alert alert-danger alert-small mt-2">
-                Password min length is 6 characters
-            </div>
-            }
-            @if (!confirmPassword.hasError('required') && !confirmPassword.hasError('minlength') && confirmPassword.hasError('passwordMismatch')) {
-            <div class="alert alert-danger alert-small mt-2">
-                Passwords must match
-            </div>
-            }
+                @if (confirmPassword.hasError('required')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        Password confirmation is required
+                    </div>
+                }
+                @if (confirmPassword.hasError('minlength')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        Password min length is 6 characters
+                    </div>
+                }
+                @if (!confirmPassword.hasError('required') && !confirmPassword.hasError('minlength') && confirmPassword.hasError('passwordMismatch')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        Passwords must match
+                    </div>
+                }
             }
         </div>
         <button type="submit" class="btn btn-primary btn-sm mx-4 mt-3">Update</button>

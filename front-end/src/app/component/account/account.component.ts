@@ -2,6 +2,8 @@ import {Component, inject} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
+import {environment} from "@environment/environment";
+import {AuthService} from "@service/authentication/auth.service";
 import {HttpClient} from '@angular/common/http';
 
 import {User} from '@model/user';
@@ -13,19 +15,17 @@ import {User} from '@model/user';
     styleUrl: 'account.component.css'
 })
 export class AccountComponent {
+    private accountUrl = `${environment.apiUrl}/account`;
     private httpClient = inject(HttpClient);
     private router = inject(Router);
-    showPassword: boolean = false;
+    authService = inject(AuthService);
+    passwordIsVisible: boolean = false;
     user = new User(0, '', '', '', '', '', false);
     confirmedPassword: string = '';
 
-    onSpanClick() {
-        this.showPassword = !this.showPassword;
-    }
-
     ngOnInit(): void {
         this.httpClient
-            .get<User>('http://localhost:8080/account')
+            .get<User>(this.accountUrl)
             .subscribe(user => {
                 if (user == null) {
                     this.router.navigate(['/login']);
@@ -33,6 +33,14 @@ export class AccountComponent {
                     this.user = user;
                 }
             });
+    }
+
+    showPassword() {
+        this.passwordIsVisible = !this.passwordIsVisible;
+    }
+
+    logout() {
+        this.authService.logout();
     }
 
     onSubmit() {
