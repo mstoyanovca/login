@@ -2,16 +2,19 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {tap} from 'rxjs/operators';
+import {environment} from "@environment/environment";
 
 import {User} from "@model/user";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
+    private registerUrl = `${environment.apiUrl}/register`;
+    private loginUrl = `${environment.apiUrl}/login`;
     private httpClient = inject(HttpClient);
 
     register(user: User): Observable<User> {
         return this.httpClient
-            .post<User>('http://localhost:8080/register', user)
+            .post<User>(this.registerUrl, user)
             .pipe(tap(user => {
                 user.password = '******';
                 console.log("registered a new user: ", JSON.stringify(user));
@@ -20,20 +23,20 @@ export class AuthService {
 
     login(user: User): Observable<string> {
         return this.httpClient
-            .post('http://localhost:8080/login', user, {responseType: 'text'})
+            .post(this.loginUrl, user, {responseType: 'text'})
             .pipe(tap(jwt => {
-                console.log("logged in user email: ", user.email);
                 localStorage.setItem('jwt', jwt);
+                console.log("logged in a user with an email: ", user.email);
             }));
     }
 
     logout(): void {
+        localStorage.removeItem('jwt');
         console.log("logged out...");
-        localStorage.removeItem('token');
     }
 
     isAuthenticated(): boolean {
-        const isAuthenticated = !!localStorage.getItem('token');
+        const isAuthenticated = !!localStorage.getItem('jwt');
         console.log('isAuthenticated = ', isAuthenticated);
         return isAuthenticated;
     }

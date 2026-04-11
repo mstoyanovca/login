@@ -29,7 +29,7 @@ export class LoginComponent {
             .subscribe({
                 next: (_) => {
                     this.loginError = false;
-                    this.loggedIn = this.authService.isAuthenticated();
+                    this.loggedIn = true;
                     this.router.navigate(['/account']);
                 },
                 error: (error) => {
