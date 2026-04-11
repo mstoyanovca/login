@@ -13,11 +13,10 @@ import {AuthService} from '@service/authentication/auth.service';
     styleUrl: 'login.component.css'
 })
 export class LoginComponent {
-    loggedIn = false;
     showPassword = false;
     loginError = false;
     user = new User(0, '', '', '', '', 'admin', false);
-    private authService = inject(AuthService);
+    authService = inject(AuthService);
     private router = inject(Router);
 
     onSpanClick() {
@@ -29,7 +28,6 @@ export class LoginComponent {
             .subscribe({
                 next: (_) => {
                     this.loginError = false;
-                    this.loggedIn = true;
                     this.router.navigate(['/account']);
                 },
                 error: (error) => {

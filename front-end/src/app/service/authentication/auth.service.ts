@@ -30,14 +30,14 @@ export class AuthService {
             }));
     }
 
-    logout(): void {
-        localStorage.removeItem('jwt');
-        console.log("logged out...");
-    }
-
     isAuthenticated(): boolean {
         const isAuthenticated = !!localStorage.getItem('jwt');
         console.log('isAuthenticated = ', isAuthenticated);
         return isAuthenticated;
+    }
+
+    logout(): void {
+        localStorage.removeItem('jwt');
+        console.log("logged out...");
     }
 }

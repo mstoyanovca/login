@@ -10,15 +10,18 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav nav">
-                    <li class="nav-item" *ngIf="loggedIn">
-                        <a routerLink="/account" class="nav-link">Account</a>
-                    </li>
-                    <li class="nav-item">
-                        <a routerLink="/register" class="nav-link">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a routerLink="/forgot-password" class="nav-link">Forgot password</a>
-                    </li>
+                    @if (this.authService.isAuthenticated()) {
+                        <li class="nav-item">
+                            <a routerLink="/account" class="nav-link">Account</a>
+                        </li>
+                    } @else {
+                        <li class="nav-item">
+                            <a routerLink="/register" class="nav-link">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/forgot-password" class="nav-link">Forgot password</a>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
@@ -26,7 +29,7 @@
 
     <div class="m-4">
         <p>Login, or create an account.</p>
-        <p>This is my Bootstrap 5, Angular 21, Java 26 and Spring Boot 4 playground.</p>
+        <p>Bootstrap 5, Angular 21, Java 26 and Spring Boot 4 SPA with JWT login.</p>
     </div>
 
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
@@ -49,7 +52,8 @@
         <div class="mx-4 mt-2 col col-lg-4 col-md-6">
             <label for="password">Password</label>
             <div class="input-group">
-                <input [type]="showPassword ? 'text' : 'password'" class="form-control form-control-sm" id="password" name="password" [(ngModel)]="user.password" #password="ngModel" required minlength="6">
+                <input [type]="showPassword ? 'text' : 'password'" class="form-control form-control-sm" id="password" name="password"
+                       [(ngModel)]="user.password" #password="ngModel" required minlength="6">
                 <span class="input-group-text" (click)="onSpanClick()">
                     <i [ngClass]="showPassword ? 'fa fa-regular fa-eye' : 'fa fa-regular fa-eye-slash'"></i>
                 </span>
