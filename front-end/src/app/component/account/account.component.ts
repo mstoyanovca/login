@@ -46,8 +46,8 @@ export class AccountComponent {
 
     onSubmit(): void {
         // TODO: update user in the backend
-        const tempUser: User = this.user;
-        tempUser.password = '******';
-        console.log("user = " + JSON.stringify(tempUser));
+        const logUser: User = this.user;
+        logUser.password = '******';
+        console.log("user = " + JSON.stringify(logUser));
     }
 }
