@@ -48,6 +48,6 @@ export class AccountComponent {
         // TODO: update user in the backend
         const logUser: User = this.user;
         logUser.password = '******';
-        console.log("user = " + JSON.stringify(logUser));
+        console.log("updated user = " + JSON.stringify(logUser));
     }
 }
