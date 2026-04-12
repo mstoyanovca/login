@@ -25,3 +25,13 @@ Bootstrap 5/Angular 21/Java 26/Spring Boot 4 SPA with JWT login, created to keep
 - Spring Security
 - REST controllers
 - JWT
+
+### TODO
+
+- implement an email service and an activation link on registration
+- implement forgot password email link generation
+- implement a short-lived access and a long-lived refresh tokens
+- store the refresh token in an HttpOnly/Secure cookie to protect from XSS attacks
+- store the access token in local storage, add it to an Authorization: Bearer <token> header on each request
+- check the access token expiration before each request
+- if the access token is expired, send the refresh token to a /refresh endpoint to obtain a new access token
