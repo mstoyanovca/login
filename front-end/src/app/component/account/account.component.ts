@@ -6,11 +6,12 @@ import {AuthService} from "@service/authentication/auth.service";
 import {HttpClient} from '@angular/common/http';
 
 import {environment} from "@environment/environment";
+import {PasswordMatchDirective} from '@directive/password-match.directive';
 import {User} from '@model/user';
 
 @Component({
     selector: 'app-account',
-    imports: [RouterLink, FormsModule, CommonModule],
+    imports: [RouterLink, FormsModule, CommonModule, PasswordMatchDirective],
     templateUrl: 'account.component.html',
     styleUrl: 'account.component.css'
 })

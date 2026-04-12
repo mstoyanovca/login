@@ -101,7 +101,7 @@
                 }
                 @if (!confirmPassword.hasError('required') && !confirmPassword.hasError('minlength') && confirmPassword.hasError('passwordMismatch')) {
                     <div class="alert alert-danger alert-small mt-2">
-                        Passwords must match
+                        Passwords don't match
                     </div>
                 }
             }
