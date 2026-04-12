@@ -1,6 +1,6 @@
 ## Login
 
-Java 26/Spring Boot 4/Bootstrap 5/Angular 21 single page application, created to keep up with the latest in Spring Boot and Angular.
+Bootstrap 5/Angular 21/Java 26/Spring Boot 4 SPA with JWT login, created to keep up with the latest in Spring Boot and Angular.
 
 ### Commands
 

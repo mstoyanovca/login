@@ -2,11 +2,12 @@ import {Component, inject} from '@angular/core';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
+import {HttpClient} from "@angular/common/http";
 import {Router, RouterLink} from '@angular/router';
 
-import {User} from '@model/user';
+import {environment} from "@environment/environment";
 import {PasswordMatchDirective} from '@directive/password-match.directive';
-import {AuthService} from '@service/authentication/auth.service';
+import {User} from '@model/user';
 
 @Component({
     selector: 'app-register',
@@ -15,22 +16,25 @@ import {AuthService} from '@service/authentication/auth.service';
     styleUrl: 'register.component.css'
 })
 export class RegisterComponent {
-    showPassword: boolean = false;
-    user = new User(0, '', '', '', '', 'admin', false);
+    user: User = new User(0, '', '', '', '', 'admin', false);
     confirmedPassword: string = '';
-    private authService = inject(AuthService);
-    private router = inject(Router);
+    showPassword: boolean = false;
+    private registerUrl: string = `${environment.apiUrl}/register`;
+    private httpClient: HttpClient = inject(HttpClient);
+    private router: Router = inject(Router);
 
-    onSpanClick() {
+    onSpanClick(): void {
         this.showPassword = !this.showPassword;
     }
 
-    onSubmit() {
-        this.authService
-            .register(this.user)
+    onSubmit(): void {
+        this.httpClient
+            .post<User>(this.registerUrl, this.user)
             .subscribe({
-                next: (_) => {
-                    // setup response header 201 resource created
+                next: (user) => {
+                    user.password = '******';
+                    console.log("registered a new user: ", JSON.stringify(user));
+                    // TODO: setup response header 201 resource created
                     this.router.navigate(['/account']);
                 },
                 error: (error) => {

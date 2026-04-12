@@ -13,17 +13,17 @@ import {AuthService} from '@service/authentication/auth.service';
     styleUrl: 'login.component.css'
 })
 export class LoginComponent {
-    showPassword = false;
-    loginError = false;
-    user = new User(0, '', '', '', '', 'admin', false);
-    authService = inject(AuthService);
-    private router = inject(Router);
+    user: User = new User(0, '', '', '', '', 'admin', false);
+    showPassword: boolean = false;
+    loginError: boolean = false;
+    authService: AuthService = inject(AuthService);
+    private router: Router = inject(Router);
 
-    onSpanClick() {
+    onSpanClick(): void {
         this.showPassword = !this.showPassword;
     }
 
-    onSubmit() {
+    onSubmit(): void {
         this.authService.login(this.user)
             .subscribe({
                 next: (_) => {

@@ -2,10 +2,10 @@ import {Component, inject} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
-import {environment} from "@environment/environment";
 import {AuthService} from "@service/authentication/auth.service";
 import {HttpClient} from '@angular/common/http';
 
+import {environment} from "@environment/environment";
 import {User} from '@model/user';
 
 @Component({
@@ -15,13 +15,13 @@ import {User} from '@model/user';
     styleUrl: 'account.component.css'
 })
 export class AccountComponent {
-    private accountUrl = `${environment.apiUrl}/account`;
-    private httpClient = inject(HttpClient);
-    private router = inject(Router);
-    authService = inject(AuthService);
-    passwordIsVisible: boolean = false;
-    user = new User(0, '', '', '', '', '', false);
+    user: User = new User(0, '', '', '', '', '', false);
     confirmedPassword: string = '';
+    passwordIsVisible: boolean = false;
+    private accountUrl: string = `${environment.apiUrl}/account`;
+    private httpClient: HttpClient = inject(HttpClient);
+    private router: Router = inject(Router);
+    authService: AuthService = inject(AuthService);
 
     ngOnInit(): void {
         this.httpClient
@@ -35,15 +35,16 @@ export class AccountComponent {
             });
     }
 
-    showPassword() {
+    showPassword(): void {
         this.passwordIsVisible = !this.passwordIsVisible;
     }
 
-    logout() {
+    logout(): void {
         this.authService.logout();
     }
 
-    onSubmit() {
+    onSubmit(): void {
+        // TODO: update user in the backend
         console.log("user = " + JSON.stringify(this.user));
     }
 }
