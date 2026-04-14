@@ -14,13 +14,13 @@ import {AuthService} from '@service/authentication/auth.service';
 })
 export class LoginComponent {
     user: User = new User(0, '', '', '', '', 'admin', false);
-    showPassword: boolean = false;
+    passwordIsVisible: boolean = false;
     loginError: boolean = false;
     authService: AuthService = inject(AuthService);
     private router: Router = inject(Router);
 
-    onSpanClick(): void {
-        this.showPassword = !this.showPassword;
+    showPassword(): void {
+        this.passwordIsVisible = !this.passwordIsVisible;
     }
 
     onSubmit(): void {

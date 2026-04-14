@@ -28,28 +28,35 @@
 
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
         <div class="mx-4 col col-lg-4 col-md-6">
-            <label for="email">Email</label>
-            <input type="email" class="form-control form-control-sm" id="email" name="email" [(ngModel)]="user.email" #email="ngModel" required email>
-            @if (email.invalid && email.touched) {
-                @if (email.hasError('required')) {
-                    <div class="alert alert-danger alert-small mt-2">
-                        Email is required
-                    </div>
+            <div class="input-group">
+                <span class="input-group-text">
+                        <i class="fa-regular fa-envelope"></i>
+                    </span>
+                <input type="email" class="form-control form-control-sm" id="email" name="email" [(ngModel)]="user.email" #email="ngModel" placeholder="email"
+                       required email>
+                @if (email.invalid && email.touched) {
+                    @if (email.hasError('required')) {
+                        <div class="alert alert-danger alert-small mt-2">
+                            Email is required
+                        </div>
+                    }
+                    @if (email.hasError('email')) {
+                        <div class="alert alert-danger alert-small mt-2">
+                            Email is invalid
+                        </div>
+                    }
                 }
-                @if (email.hasError('email')) {
-                    <div class="alert alert-danger alert-small mt-2">
-                        Email is invalid
-                    </div>
-                }
-            }
+            </div>
         </div>
         <div class="mx-4 mt-2 col col-lg-4 col-md-6">
-            <label for="password">Password</label>
             <div class="input-group">
-                <input [type]="showPassword ? 'text' : 'password'" class="form-control form-control-sm" id="password" name="password"
-                       [(ngModel)]="user.password" #password="ngModel" required minlength="6">
-                <span class="input-group-text" (click)="onSpanClick()">
-                    <i [ngClass]="showPassword ? 'fa fa-regular fa-eye' : 'fa fa-regular fa-eye-slash'"></i>
+                <span class="input-group-text">
+                    <i class="fa-solid fa-key"></i>
+                </span>
+                <input [type]="passwordIsVisible ? 'text' : 'password'" class="form-control form-control-sm" id="password" name="password"
+                       [(ngModel)]="user.password" #password="ngModel" placeholder="password" required minlength="6">
+                <span class="input-group-text" (click)="showPassword()">
+                    <i [ngClass]="passwordIsVisible ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'"></i>
                 </span>
             </div>
             @if (password.invalid && password.touched) {
