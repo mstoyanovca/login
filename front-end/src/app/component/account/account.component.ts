@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import {Router, RouterLink} from '@angular/router';
+import {RouterLink} from '@angular/router';
 import {AuthService} from "@service/authentication/auth.service";
 import {HttpClient} from '@angular/common/http';
 
@@ -20,19 +20,15 @@ export class AccountComponent {
     confirmedPassword: string = '';
     passwordIsVisible: boolean = false;
     private accountUrl: string = `${environment.apiUrl}/account`;
+    private updateUrl: string = `${environment.apiUrl}/update`;
     private httpClient: HttpClient = inject(HttpClient);
-    private router: Router = inject(Router);
     authService: AuthService = inject(AuthService);
 
     ngOnInit(): void {
         this.httpClient
             .get<User>(this.accountUrl)
             .subscribe(user => {
-                if (user == null) {
-                    this.router.navigate(['/login']);
-                } else {
-                    this.user = user;
-                }
+                this.user = user;
             });
     }
 
@@ -45,9 +41,12 @@ export class AccountComponent {
     }
 
     onSubmit(): void {
-        // TODO: update user in the backend
-        const logUser: User = this.user;
-        logUser.password = '******';
-        console.log("updated user = " + JSON.stringify(logUser));
+        this.httpClient
+            .put<User>(this.updateUrl, this.user, {responseType: "json"})
+            .subscribe({
+                next: (user) => {
+                    this.user = user;
+                }
+            });
     }
 }

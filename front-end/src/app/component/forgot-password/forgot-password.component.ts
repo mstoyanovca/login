@@ -1,9 +1,10 @@
 import {Component, inject} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
 import {FormsModule} from '@angular/forms';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 
 import {environment} from "@environment/environment";
+import {User} from "@model/user";
 
 @Component({
     selector: 'app-forgot-password',
@@ -12,23 +13,17 @@ import {environment} from "@environment/environment";
     styleUrl: 'forgot-password.component.css'
 })
 export class ForgotPasswordComponent {
-    private forgotPasswordUrl: string = `${environment.apiUrl}/forgot-password`;
+    user: User = new User(0, '', '', '', '', 'admin', false);
+    private forgotPasswordUrl: string = `${environment.apiUrl}/reset-password`;
     private httpClient: HttpClient = inject(HttpClient);
     private router: Router = inject(Router);
-    data = {email: ''};
 
     onSubmit(): void {
-        const headers = new HttpHeaders({'Content-Type': 'application/json'});
-
         this.httpClient
-            .post<{ email: string }>(this.forgotPasswordUrl, this.data, {headers})
+            .post<User>(this.forgotPasswordUrl, this.user, {responseType: "json"})
             .subscribe({
-                next: (data) => {
-                    console.log("sent password reset request for email: ", data.email);
+                next: (_) => {
                     this.router.navigate(['/login']);
-                },
-                error: (error) => {
-                    console.log('password reset error: ', error);
                 }
             });
     }

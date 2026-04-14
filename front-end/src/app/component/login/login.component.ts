@@ -30,8 +30,7 @@ export class LoginComponent {
                     this.loginError = false;
                     this.router.navigate(['/account']);
                 },
-                error: (error) => {
-                    console.log("login error: ", error);
+                error: (_) => {
                     this.loginError = true;
                 }
             });

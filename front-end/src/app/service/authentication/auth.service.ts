@@ -16,18 +16,14 @@ export class AuthService {
             .post(this.loginUrl, user, {responseType: 'text'})
             .pipe(tap(jwt => {
                 localStorage.setItem('jwt', jwt);
-                console.log("logged in a user with an email: ", user.email);
             }));
     }
 
     isAuthenticated(): boolean {
-        const isAuthenticated = !!localStorage.getItem('jwt');
-        console.log('isAuthenticated = ', isAuthenticated);
-        return isAuthenticated;
+        return !!localStorage.getItem('jwt');
     }
 
     logout(): void {
         localStorage.removeItem('jwt');
-        console.log("logged out...");
     }
 }

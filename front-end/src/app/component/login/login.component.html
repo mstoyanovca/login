@@ -64,9 +64,9 @@
                     </div>
                 }
             }
-            @if (email.valid && password.valid && loginError) {
+            @if (loginForm.valid && loginError) {
                 <div class="alert alert-danger alert-small mt-2">
-                    Invalid login credentials
+                    Invalid credentials
                 </div>
             }
         </div>

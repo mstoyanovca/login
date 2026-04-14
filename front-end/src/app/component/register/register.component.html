@@ -60,7 +60,8 @@
         <div class="mx-4 mt-2 col col-lg-4 col-md-6">
             <label for="password">Password</label>
             <div class="input-group">
-                <input [type]="showPassword ? 'text' : 'password'" class="form-control form-control-sm" id="password" name="password" [(ngModel)]="user.password" #password="ngModel" required minlength="6">
+                <input [type]="showPassword ? 'text' : 'password'" class="form-control form-control-sm" id="password" name="password"
+                       [(ngModel)]="user.password" #password="ngModel" required minlength="6" passwordMatch="confirmPassword">
                 <span class="input-group-text" (click)="onSpanClick()">
                     <i [ngClass]="showPassword ? 'fa fa-regular fa-eye' : 'fa fa-regular fa-eye-slash'"></i>
                 </span>
@@ -76,12 +77,18 @@
                         Password min length is 6 characters
                     </div>
                 }
+                @if (!password.hasError('required') && !password.hasError('minlength') && password.hasError('passwordMismatch')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        Passwords must match
+                    </div>
+                }
             }
         </div>
         <div class="mx-4 mt-2 col col-lg-4 col-md-6">
             <label for="confirmPassword">Confirm password</label>
             <div class="input-group">
-                <input [type]="showPassword ? 'text' : 'password'" class="form-control form-control-sm" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmedPassword" #confirmPassword="ngModel" required minlength="6" passwordMatch="password">
+                <input [type]="showPassword ? 'text' : 'password'" class="form-control form-control-sm" id="confirmPassword" name="confirmPassword"
+                       [(ngModel)]="confirmedPassword" #confirmPassword="ngModel" required minlength="6" passwordMatch="password">
                 <span class="input-group-text" (click)="onSpanClick()">
                     <i [ngClass]="showPassword ? 'fa fa-regular fa-eye' : 'fa fa-regular fa-eye-slash'"></i>
                 </span>
@@ -102,6 +109,16 @@
                         Passwords must match
                     </div>
                 }
+                @if (registrationError) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        This email is already registered
+                    </div>
+                }
+            }
+            @if (registerForm.valid && registrationError) {
+                <div class="alert alert-danger alert-small mt-2">
+                    This email is already registered
+                </div>
             }
         </div>
         <button type="submit" class="btn btn-primary btn-sm mx-4 mt-3" [disabled]="registerForm.invalid">Register</button>

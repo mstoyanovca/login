@@ -28,6 +28,7 @@ Bootstrap 5/Angular 21/Java 26/Spring Boot 4 SPA with JWT login, created to keep
 
 ### TODO
 
+- session cookie vs JWT vs PKCE 
 - implement an email service and an activation link on registration
 - implement forgot password email link generation
 - implement a short-lived access and a long-lived refresh tokens

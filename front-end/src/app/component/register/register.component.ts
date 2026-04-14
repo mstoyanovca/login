@@ -19,6 +19,7 @@ export class RegisterComponent {
     user: User = new User(0, '', '', '', '', 'admin', false);
     confirmedPassword: string = '';
     showPassword: boolean = false;
+    registrationError: boolean = false;
     private registerUrl: string = `${environment.apiUrl}/register`;
     private httpClient: HttpClient = inject(HttpClient);
     private router: Router = inject(Router);
@@ -28,17 +29,14 @@ export class RegisterComponent {
     }
 
     onSubmit(): void {
-        this.httpClient
-            .post<User>(this.registerUrl, this.user)
+        this.httpClient.post<User>(this.registerUrl, this.user, {responseType: 'json'})
             .subscribe({
-                next: (user) => {
-                    user.password = '******';
-                    console.log("registered a new user: ", JSON.stringify(user));
-                    // TODO: setup response header 201 resource created
-                    this.router.navigate(['/account']);
-                },
-                error: (error) => {
-                    console.log('registration error: ', error);
+                next: (_) => {
+                    this.router.navigate(['/login']);
+                }, error: (error) => {
+                    if (error.status === 409) {
+                        this.registrationError = true;
+                    }
                 }
             });
     }

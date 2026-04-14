@@ -24,7 +24,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user) {
+    public ResponseEntity<String> login(@RequestBody User user) {
         try {
             authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
             return ResponseEntity.ok(jwtService.generate(user.getEmail()));

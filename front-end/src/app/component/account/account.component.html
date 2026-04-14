@@ -18,7 +18,7 @@
         </div>
     </nav>
 
-    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+    <form (ngSubmit)="onSubmit()" #accountForm="ngForm">
         <div class="mx-4 col col-lg-4 col-md-6 mt-4">
             <label for="firstName">First name</label>
             <input type="text" class="form-control form-control-sm" id="firstName" name="firstName" [(ngModel)]="user.firstName" #firstName="ngModel" required>
@@ -61,7 +61,7 @@
             <label for="password">Password</label>
             <div class="input-group">
                 <input [type]="passwordIsVisible ? 'text' : 'password'" class="form-control form-control-sm" id="password" name="password"
-                       [(ngModel)]="user.password" #password="ngModel" required minlength="6">
+                       [(ngModel)]="user.password" #password="ngModel" required minlength="6" passwordMatch="confirmPassword">
                 <span class="input-group-text" (click)="showPassword()">
                     <i [ngClass]="passwordIsVisible ? 'fa fa-regular fa-eye' : 'fa fa-regular fa-eye-slash'"></i>
                 </span>
@@ -75,6 +75,11 @@
                 @if (password.hasError('minlength')) {
                     <div class="alert alert-danger alert-small mt-2">
                         Password min length is 6 characters
+                    </div>
+                }
+                @if (!password.hasError('required') && !password.hasError('minlength') && password.hasError('passwordMismatch')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        Passwords don't match
                     </div>
                 }
             }
@@ -106,7 +111,7 @@
                 }
             }
         </div>
-        <button type="submit" class="btn btn-primary btn-sm mx-4 mt-3">Update</button>
+        <button type="submit" class="btn btn-primary btn-sm mx-4 mt-3" [disabled]="accountForm.invalid">Update</button>
     </form>
 
     <nav class="navbar fixed-bottom bg-body-tertiary">

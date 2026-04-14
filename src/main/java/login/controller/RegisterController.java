@@ -22,14 +22,14 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user) {
+    public ResponseEntity<User> register(@RequestBody User user) {
         try {
             if (userRepository.findByEmail(user.getEmail()).isPresent()) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).build();
             } else {
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
                 userRepository.save(user);
-                user.setPassword("******");
+                user.setPassword("");
                 return ResponseEntity.status(HttpStatus.CREATED).body(user);
             }
         } catch (IllegalArgumentException e) {

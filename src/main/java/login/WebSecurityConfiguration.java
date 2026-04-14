@@ -42,10 +42,15 @@ public class WebSecurityConfiguration {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .headers(headers -> headers
+                        .contentSecurityPolicy(csp -> csp
+                                .policyDirectives("default-src 'self'; script-src 'self'; style-src 'self' 'nonce-{random}';")
+                        )
+                )
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
-                                .requestMatchers("/login/**", "/register/**", "/forgot-password/**").permitAll()
-                                .requestMatchers("/account/**").hasAnyAuthority("user", "admin")
+                                .requestMatchers("/login/**", "/register/**", "/reset-password/**").permitAll()
+                                .requestMatchers("/account/**").hasAnyAuthority("admin", "user")
                                 .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
