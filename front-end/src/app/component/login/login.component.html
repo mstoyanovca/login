@@ -30,8 +30,8 @@
         <div class="mx-4 col col-lg-4 col-md-6">
             <div class="input-group">
                 <span class="input-group-text">
-                        <i class="fa-regular fa-envelope"></i>
-                    </span>
+                    <i class="fa-regular fa-envelope"></i>
+                </span>
                 <input type="email" class="form-control form-control-sm" id="email" name="email" [(ngModel)]="user.email" #email="ngModel" placeholder="email"
                        required email>
                 @if (email.invalid && email.touched) {

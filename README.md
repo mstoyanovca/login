@@ -36,3 +36,4 @@ Bootstrap 5/Angular 21/Java 26/Spring Boot 4 SPA with JWT login, created to keep
 - store the access token in local storage, add it to an Authorization: Bearer <token> header on each request
 - check the access token expiration before each request
 - if the access token is expired, send the refresh token to a /refresh endpoint to obtain a new access token
+- add a logger
