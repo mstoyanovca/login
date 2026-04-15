@@ -27,7 +27,6 @@ public class AccountController {
 
     @GetMapping("/account")
     public ResponseEntity<User> account() {
-        // TODO: this should use findById()
         return userRepository.findByEmail(getCurrentUserId()).map(u -> {
             u.setPassword("");
             return u;
