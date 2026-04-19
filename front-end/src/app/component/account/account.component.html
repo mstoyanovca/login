@@ -89,9 +89,6 @@
             <div class="input-group">
                 <input [type]="passwordIsVisible ? 'text' : 'password'" class="form-control form-control-sm" id="confirmPassword" name="confirmPassword"
                        [(ngModel)]="confirmedPassword" #confirmPassword="ngModel" required minlength="6" passwordMatch="password">
-                <span class="input-group-text" (click)="showPassword()">
-                    <i [ngClass]="passwordIsVisible ? 'fa fa-regular fa-eye' : 'fa fa-regular fa-eye-slash'"></i>
-                </span>
             </div>
             @if (confirmPassword.invalid && confirmPassword.touched) {
                 @if (confirmPassword.hasError('required')) {

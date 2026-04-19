@@ -34,19 +34,19 @@
                 </span>
                 <input type="email" class="form-control form-control-sm" id="email" name="email" [(ngModel)]="user.email" #email="ngModel" placeholder="email"
                        required email>
-                @if (email.invalid && email.touched) {
-                    @if (email.hasError('required')) {
-                        <div class="alert alert-danger alert-small mt-2">
-                            Email is required
-                        </div>
-                    }
-                    @if (email.hasError('email')) {
-                        <div class="alert alert-danger alert-small mt-2">
-                            Email is invalid
-                        </div>
-                    }
-                }
             </div>
+            @if (email.invalid && email.touched) {
+                @if (email.hasError('required')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        Email is required
+                    </div>
+                }
+                @if (email.hasError('email')) {
+                    <div class="alert alert-danger alert-small mt-2">
+                        Email is invalid
+                    </div>
+                }
+            }
         </div>
         <div class="mx-4 mt-2 col col-lg-4 col-md-6">
             <div class="input-group">

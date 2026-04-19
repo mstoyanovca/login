@@ -14,13 +14,15 @@ Bootstrap 5/Angular 21/Java 26/Spring Boot 4 SPA with JWT login, created to keep
 
 ### Frontend Features
 
+- Bootstrap, Angular, TypeScript
 - template forms, validation, custom directive
-- router
-- auth guard
+- Angular Router
+- Auth Guard
 - JWT interceptor
 
 ### Backend Features
 
+- Spring Boot
 - Spring Data
 - Spring Security
 - REST controllers
@@ -28,10 +30,10 @@ Bootstrap 5/Angular 21/Java 26/Spring Boot 4 SPA with JWT login, created to keep
 
 ### TODO
 
-- session cookie vs JWT vs PKCE 
-- implement an email service and an activation link on registration
+- implement an email service and send an account activation email link on registration
 - implement forgot password email link generation
-- implement a short-lived access and a long-lived refresh tokens
+- session cookie vs JWT vs PKCE
+- implement a short-lived access token and a long-lived refresh token
 - store the refresh token in an HttpOnly/Secure cookie to protect from XSS attacks
 - store the access token in local storage, add it to an Authorization: Bearer <token> header on each request
 - check the access token expiration before each request

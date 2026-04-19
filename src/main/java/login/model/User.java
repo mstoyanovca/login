@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "\"user\"", indexes = {@Index(name = "idx_email", columnList = "email")})
 // user is a preserved word in H2
 public class User {
     @Id
@@ -115,3 +115,4 @@ public class User {
                 '}';
     }
 }
+

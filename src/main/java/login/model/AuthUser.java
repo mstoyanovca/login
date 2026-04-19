@@ -1,5 +1,6 @@
 package login.model;
 
+import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,6 +17,7 @@ public class AuthUser implements UserDetails {
     }
 
     @Override
+    @NonNull
     public String getUsername() {
         return user.getEmail();
     }
@@ -26,6 +28,7 @@ public class AuthUser implements UserDetails {
     }
 
     @Override
+    @NonNull
     public List<GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(user.getRole()));
     }
