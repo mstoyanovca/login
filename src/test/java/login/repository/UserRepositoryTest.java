@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 public class UserRepositoryTest {
@@ -17,7 +17,7 @@ public class UserRepositoryTest {
 
     @BeforeEach
     public void beforeEach() {
-        testUser = new User(0L, "Martin", "Stoyanov", "abc@gmail.com", "password", "admin", false);
+        testUser = new User(0L, "Martin", "Stoyanov", "abc@gmail.com", "password", "admin", true);
         userRepository.save(testUser);
     }
 
@@ -29,6 +29,8 @@ public class UserRepositoryTest {
     @Test
     void findByIdTest() {
         User savedUser = userRepository.findById(testUser.getId()).orElse(null);
+        assertNotNull(savedUser);
+
         assertEquals(testUser.getFirstName(), savedUser.getFirstName());
         assertEquals(testUser.getLastName(), savedUser.getLastName());
         assertEquals(testUser.getEmail(), savedUser.getEmail());
@@ -38,8 +40,10 @@ public class UserRepositoryTest {
     }
 
     @Test
-    void findByEmail() {
-        User savedUser = userRepository.findByEmail(testUser.getEmail()).get();
+    void findByEmailTest() {
+        User savedUser = userRepository.findByEmail(testUser.getEmail()).orElse(null);
+        assertNotNull(savedUser);
+
         assertEquals(testUser.getFirstName(), savedUser.getFirstName());
         assertEquals(testUser.getLastName(), savedUser.getLastName());
         assertEquals(testUser.getEmail(), savedUser.getEmail());
@@ -51,6 +55,7 @@ public class UserRepositoryTest {
     @Test
     void findByEmailAndPasswordTest() {
         User savedUser = userRepository.findByEmailAndPassword(testUser.getEmail(), testUser.getPassword());
+
         assertEquals(testUser.getFirstName(), savedUser.getFirstName());
         assertEquals(testUser.getLastName(), savedUser.getLastName());
         assertEquals(testUser.getEmail(), savedUser.getEmail());
@@ -62,6 +67,8 @@ public class UserRepositoryTest {
     @Test
     void updateTest() {
         User savedUser = userRepository.findById(testUser.getId()).orElse(null);
+        assertNotNull(savedUser);
+
         savedUser.setFirstName("John");
         savedUser.setLastName("Smith");
         savedUser.setEmail("a@a.com");
@@ -71,11 +78,13 @@ public class UserRepositoryTest {
         userRepository.save(savedUser);
 
         savedUser = userRepository.findById(testUser.getId()).orElse(null);
+        assertNotNull(savedUser);
+
         assertEquals("John", savedUser.getFirstName());
         assertEquals("Smith", savedUser.getLastName());
         assertEquals("a@a.com", savedUser.getEmail());
         assertEquals("change_it", savedUser.getPassword());
         assertEquals("user", savedUser.getRole());
-        assertEquals(true, savedUser.isActive());
+        assertTrue(savedUser.isActive());
     }
 }

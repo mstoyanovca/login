@@ -1,6 +1,7 @@
 package login.model;
 
 import jakarta.persistence.*;
+import org.jspecify.annotations.NonNull;
 
 import java.util.Objects;
 
@@ -11,20 +12,34 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(name = "first_name")
+    @NonNull
+    @Column(name = "first_name", nullable = false)
     private String firstName;
-    @Column(name = "last_name")
+    @NonNull
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+    @NonNull
+    @Column(unique = true, nullable = false)
     private String email;
+    @NonNull
+    @Column(nullable = false)
     private String password;
+    @NonNull
+    @Column(nullable = false)
     private String role;
+    @Column(nullable = false)
     private boolean active;
 
     // do not remove the no-argument constructor:
     public User() {
+        firstName = "";
+        lastName = "";
+        email = "";
+        password = "";
+        role = "";
     }
 
-    public User(Long id, String firstName, String lastName, String email, String password, String role, boolean active) {
+    public User(Long id, @NonNull String firstName, @NonNull String lastName, @NonNull String email, @NonNull String password, @NonNull String role, boolean active) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -42,43 +57,43 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstName() {
+    public @NonNull String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(@NonNull String firstName) {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
+    public @NonNull String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(@NonNull String lastName) {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
+    public @NonNull String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(@NonNull String email) {
         this.email = email;
     }
 
-    public String getPassword() {
+    public @NonNull String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(@NonNull String password) {
         this.password = password;
     }
 
-    public String getRole() {
+    public @NonNull String getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(@NonNull String role) {
         this.role = role;
     }
 
@@ -104,15 +119,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                ", active=" + active +
-                '}';
+        return "User{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", role='" + role + '\'' + ", active=" + active + '}';
     }
 }
 
