@@ -1,5 +1,6 @@
 package login.repository;
 
+import login.model.Role;
 import login.model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +18,7 @@ public class UserRepositoryTest {
 
     @BeforeEach
     public void beforeEach() {
-        testUser = new User(0L, "Martin", "Stoyanov", "abc@gmail.com", "password", "admin", true);
+        testUser = new User(null, "Martin", "Stoyanov", "abc@gmail.com", "password", Role.ADMIN, true);
         userRepository.save(testUser);
     }
 
@@ -73,7 +74,7 @@ public class UserRepositoryTest {
         savedUser.setLastName("Smith");
         savedUser.setEmail("a@a.com");
         savedUser.setPassword("change_it");
-        savedUser.setRole("user");
+        savedUser.setRole(Role.USER);
         savedUser.setActive(true);
         userRepository.save(savedUser);
 
@@ -84,7 +85,7 @@ public class UserRepositoryTest {
         assertEquals("Smith", savedUser.getLastName());
         assertEquals("a@a.com", savedUser.getEmail());
         assertEquals("change_it", savedUser.getPassword());
-        assertEquals("user", savedUser.getRole());
+        assertEquals(Role.USER, savedUser.getRole());
         assertTrue(savedUser.isActive());
     }
 }

@@ -30,6 +30,6 @@ public class AuthUser implements UserDetails {
     @Override
     @NonNull
     public List<GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(user.getRole()));
+        return List.of(new SimpleGrantedAuthority(user.getRole().toString()));
     }
 }

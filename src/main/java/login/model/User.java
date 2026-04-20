@@ -5,13 +5,15 @@ import org.jspecify.annotations.NonNull;
 
 import java.util.Objects;
 
+import static login.model.Role.USER;
+
 @Entity
 @Table(name = "\"user\"", indexes = {@Index(name = "idx_email", columnList = "email")})
 // user is a preserved word in H2
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     @NonNull
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -25,8 +27,9 @@ public class User {
     @Column(nullable = false)
     private String password;
     @NonNull
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String role;
+    private Role role;
     @Column(nullable = false)
     private boolean active;
 
@@ -36,10 +39,17 @@ public class User {
         lastName = "";
         email = "";
         password = "";
-        role = "";
+        role = USER;
+        active = false;
     }
 
-    public User(Long id, @NonNull String firstName, @NonNull String lastName, @NonNull String email, @NonNull String password, @NonNull String role, boolean active) {
+    public User(Long id,
+                @NonNull String firstName,
+                @NonNull String lastName,
+                @NonNull String email,
+                @NonNull String password,
+                @NonNull Role role,
+                boolean active) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -89,11 +99,11 @@ public class User {
         this.password = password;
     }
 
-    public @NonNull String getRole() {
+    public @NonNull Role getRole() {
         return role;
     }
 
-    public void setRole(@NonNull String role) {
+    public void setRole(@NonNull Role role) {
         this.role = role;
     }
 
@@ -107,9 +117,14 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return isActive() == user.isActive() && Objects.equals(getId(), user.getId()) && Objects.equals(getFirstName(), user.getFirstName()) && Objects.equals(getLastName(), user.getLastName()) && Objects.equals(getEmail(), user.getEmail()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getRole(), user.getRole());
+        if (!(o instanceof User user)) return false;
+        return Objects.equals(getId(), user.getId()) &&
+                isActive() == user.isActive() &&
+                Objects.equals(getFirstName(), user.getFirstName()) &&
+                Objects.equals(getLastName(), user.getLastName()) &&
+                Objects.equals(getEmail(), user.getEmail()) &&
+                Objects.equals(getPassword(), user.getPassword()) &&
+                getRole() == user.getRole();
     }
 
     @Override
@@ -119,7 +134,14 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", role='" + role + '\'' + ", active=" + active + '}';
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", active=" + active +
+                '}';
     }
 }
-
