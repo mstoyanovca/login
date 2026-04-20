@@ -1,6 +1,6 @@
 package login;
 
-import login.model.AuthUser;
+import login.model.UserDetailsImpl;
 import login.repository.UserRepository;
 import login.service.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +61,7 @@ public class WebSecurityConfiguration {
     @Bean
     public UserDetailsService userDetailsService() {
         return email -> userRepository.findByEmail(email)
-                .map(AuthUser::new)
+                .map(UserDetailsImpl::new)
                 .orElseThrow(() -> new UsernameNotFoundException("User " + email + " not found"));
     }
 
