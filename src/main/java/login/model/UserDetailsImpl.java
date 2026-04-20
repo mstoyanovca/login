@@ -28,6 +28,11 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     @Override
+    public boolean isEnabled() {
+        return user.isEnabled();
+    }
+
+    @Override
     @NonNull
     public List<GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(user.getRole().toString()));

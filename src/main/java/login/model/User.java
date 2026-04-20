@@ -31,7 +31,7 @@ public class User {
     @Column(nullable = false)
     private Role role;
     @Column(nullable = false)
-    private boolean active;
+    private boolean enabled;
 
     // do not remove the no-argument constructor:
     public User() {
@@ -40,7 +40,7 @@ public class User {
         email = "";
         password = "";
         role = USER;
-        active = false;
+        enabled = false;
     }
 
     public User(Long id,
@@ -49,14 +49,14 @@ public class User {
                 @NonNull String email,
                 @NonNull String password,
                 @NonNull Role role,
-                boolean active) {
+                boolean enabled) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.role = role;
-        this.active = active;
+        this.enabled = enabled;
     }
 
     public Long getId() {
@@ -107,19 +107,19 @@ public class User {
         this.role = role;
     }
 
-    public boolean isActive() {
-        return active;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof User user)) return false;
         return Objects.equals(getId(), user.getId()) &&
-                isActive() == user.isActive() &&
+                isEnabled() == user.isEnabled() &&
                 Objects.equals(getFirstName(), user.getFirstName()) &&
                 Objects.equals(getLastName(), user.getLastName()) &&
                 Objects.equals(getEmail(), user.getEmail()) &&
@@ -129,7 +129,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getEmail(), getPassword(), getRole(), isActive());
+        return Objects.hash(getId(), getFirstName(), getLastName(), getEmail(), getPassword(), getRole(), isEnabled());
     }
 
     @Override
@@ -141,7 +141,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
-                ", active=" + active +
+                ", enabled=" + enabled +
                 '}';
     }
 }

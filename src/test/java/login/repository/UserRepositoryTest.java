@@ -37,7 +37,7 @@ public class UserRepositoryTest {
         assertEquals(testUser.getEmail(), savedUser.getEmail());
         assertEquals(testUser.getPassword(), savedUser.getPassword());
         assertEquals(testUser.getRole(), savedUser.getRole());
-        assertEquals(testUser.isActive(), savedUser.isActive());
+        assertEquals(testUser.isEnabled(), savedUser.isEnabled());
     }
 
     @Test
@@ -50,7 +50,7 @@ public class UserRepositoryTest {
         assertEquals(testUser.getEmail(), savedUser.getEmail());
         assertEquals(testUser.getPassword(), savedUser.getPassword());
         assertEquals(testUser.getRole(), savedUser.getRole());
-        assertEquals(testUser.isActive(), savedUser.isActive());
+        assertEquals(testUser.isEnabled(), savedUser.isEnabled());
     }
 
     @Test
@@ -62,7 +62,7 @@ public class UserRepositoryTest {
         assertEquals(testUser.getEmail(), savedUser.getEmail());
         assertEquals(testUser.getPassword(), savedUser.getPassword());
         assertEquals(testUser.getRole(), savedUser.getRole());
-        assertEquals(testUser.isActive(), savedUser.isActive());
+        assertEquals(testUser.isEnabled(), savedUser.isEnabled());
     }
 
     @Test
@@ -75,7 +75,7 @@ public class UserRepositoryTest {
         savedUser.setEmail("a@a.com");
         savedUser.setPassword("change_it");
         savedUser.setRole(Role.USER);
-        savedUser.setActive(true);
+        savedUser.setEnabled(true);
         userRepository.save(savedUser);
 
         savedUser = userRepository.findById(testUser.getId()).orElse(null);
@@ -86,6 +86,6 @@ public class UserRepositoryTest {
         assertEquals("a@a.com", savedUser.getEmail());
         assertEquals("change_it", savedUser.getPassword());
         assertEquals(Role.USER, savedUser.getRole());
-        assertTrue(savedUser.isActive());
+        assertTrue(savedUser.isEnabled());
     }
 }
