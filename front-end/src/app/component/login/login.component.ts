@@ -13,7 +13,7 @@ import {AuthService} from '@service/authentication/auth.service';
     styleUrl: 'login.component.css'
 })
 export class LoginComponent {
-    user: User = new User(0, '', '', '', '', '', false);
+    user: User = new User(0, '', '', '', '', 'USER', false);
     passwordIsVisible: boolean = false;
     loginError: boolean = false;
     authService: AuthService = inject(AuthService);

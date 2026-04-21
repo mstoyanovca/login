@@ -1,29 +1,32 @@
 package login.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.jspecify.annotations.NonNull;
 
 import java.util.Objects;
 
-import static login.model.Role.USER;
-
 @Entity
+// user is a preserved word in H2:
 @Table(name = "\"user\"", indexes = {@Index(name = "idx_email", columnList = "email")})
-// user is a preserved word in H2
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NonNull
+    @NotBlank(message = "First name is required")
     @Column(name = "first_name", nullable = false)
     private String firstName;
-    @NonNull
+    @NotBlank(message = "Last name is required")
     @Column(name = "last_name", nullable = false)
     private String lastName;
-    @NonNull
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email")
     @Column(unique = true, nullable = false)
     private String email;
-    @NonNull
+    @Size(min = 6, message = "Password min length is 6 characters")
+    @NotBlank(message = "Password is required")
     @Column(nullable = false)
     private String password;
     @NonNull
@@ -39,7 +42,7 @@ public class User {
         lastName = "";
         email = "";
         password = "";
-        role = USER;
+        role = Role.USER;
         enabled = false;
     }
 

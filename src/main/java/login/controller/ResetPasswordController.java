@@ -21,7 +21,7 @@ public class ResetPasswordController {
     @PostMapping("/reset-password")
     public ResponseEntity<User> resetPassword(@RequestBody User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-            // TODO: sent an email with a password reset link
+            // TODO: send an email with a password reset link
         }
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }

@@ -1,5 +1,6 @@
 package login.controller;
 
+import jakarta.validation.Valid;
 import login.model.User;
 import login.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Objects;
 
 @RestController
 public class AccountController {
@@ -33,8 +36,8 @@ public class AccountController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<User> update(@RequestBody User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public ResponseEntity<User> update(@Valid @RequestBody User user) {
+        user.setPassword(Objects.requireNonNull(passwordEncoder.encode(user.getPassword())));
         userRepository.save(user);
         user.setPassword("");
         return ResponseEntity.status(HttpStatus.OK).body(user);
