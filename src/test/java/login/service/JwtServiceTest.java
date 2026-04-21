@@ -26,7 +26,7 @@ public class JwtServiceTest {
     }
 
     @Test
-    void getUsernameTest() {
+    void getEmailTest() {
         assertEquals(email, jwtService.getEmail(jwtToken));
     }
 }

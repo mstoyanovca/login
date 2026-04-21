@@ -50,7 +50,7 @@ public class WebSecurityConfiguration {
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
                                 .requestMatchers("/login/**", "/register/**", "/reset-password/**").permitAll()
-                                .requestMatchers("/account/**").hasAnyAuthority("admin", "user")
+                                .requestMatchers("/account/**").hasAnyAuthority("ADMIN", "USER")
                                 .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
