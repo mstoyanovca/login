@@ -2,6 +2,8 @@ package login.controller;
 
 import login.model.User;
 import login.service.JwtService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
     private final JwtService jwtService;
     private final AuthenticationManager authManager;
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @Autowired
     public LoginController(JwtService jwtService, AuthenticationManager authManager) {
@@ -27,8 +30,10 @@ public class LoginController {
     public ResponseEntity<String> login(@RequestBody User user) {
         try {
             authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+            LOGGER.info("Logged in {}", user.getEmail());
             return ResponseEntity.ok(jwtService.generate(user.getEmail()));
         } catch (AuthenticationException e) {
+            LOGGER.info("Bad credentials for {}", user.getEmail());
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }

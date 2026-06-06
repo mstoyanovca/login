@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import login.model.Role;
 import login.model.User;
 import login.repository.UserRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import java.util.Objects;
 public class RegisterController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @Autowired
     public RegisterController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -29,6 +32,7 @@ public class RegisterController {
     public ResponseEntity<User> register(@Valid @RequestBody User user) {
         try {
             if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+                LOGGER.info("{} is registered", user.getEmail());
                 return ResponseEntity.status(HttpStatus.CONFLICT).build();
             } else {
                 user.setPassword(Objects.requireNonNull(passwordEncoder.encode(user.getPassword())));
@@ -37,11 +41,14 @@ public class RegisterController {
                 user.setRole(Role.USER);
                 userRepository.save(user);
                 user.setPassword("");
+                LOGGER.info("Registered: {}", user.toString());
                 return ResponseEntity.status(HttpStatus.CREATED).body(user);
             }
         } catch (IllegalArgumentException e) {
+            LOGGER.info("User registration illegal argument exception: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         } catch (Exception e) {
+            LOGGER.info("User registration server error: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
