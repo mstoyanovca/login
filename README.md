@@ -32,4 +32,3 @@ Bootstrap 5/Angular 21/Java 26/Spring Boot 4 SPA with JWT login, created to keep
 
 - session cookie vs JWT vs PKCE
 - implement access token/refresh token
-- add a logger
