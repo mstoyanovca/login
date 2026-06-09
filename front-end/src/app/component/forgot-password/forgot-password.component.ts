@@ -1,13 +1,14 @@
 import {Component, inject} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClient} from "@angular/common/http";
+import {RouterLink} from '@angular/router';
 
 import {environment} from "@environment/environment";
 import {User} from "@model/user";
 
 @Component({
     selector: 'app-forgot-password',
-    imports: [FormsModule],
+    imports: [FormsModule, RouterLink],
     templateUrl: 'forgot-password.component.html',
     styleUrl: 'forgot-password.component.css'
 })
