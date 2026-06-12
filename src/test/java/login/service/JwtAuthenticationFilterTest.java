@@ -36,25 +36,23 @@ public class JwtAuthenticationFilterTest {
 
     @Test
     void doFilterInternalInvalidTokenTest() throws ServletException, IOException {
-        when(request.getHeader("Authorization")).thenReturn(null);
+        when(request.getHeader("Authorization")).thenReturn("Bearer invalid_token");
+        when(jwtService.isValid("invalid_token")).thenReturn(false);
 
         jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
 
         verify(filterChain, times(1)).doFilter(request, response);
-        assertNull(org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication());
+        assertNull(SecurityContextHolder.getContext().getAuthentication());
     }
 
     @Test
     void doFilterInternalValidTokenTest() throws ServletException, IOException {
-        String token = "valid.jwt.token";
-        String email = "a@a.com";
-
-        when(request.getHeader("Authorization")).thenReturn("Bearer " + token);
-        when(jwtService.getEmail(token)).thenReturn(email);
+        when(request.getHeader("Authorization")).thenReturn("Bearer valid_token");
+        when(jwtService.isValid("valid_token")).thenReturn(true);
+        when(jwtService.getEmail("valid_token")).thenReturn("a@a.com");
 
         UserDetails userDetails = mock(UserDetails.class);
-        when(userDetailsService.loadUserByUsername(email)).thenReturn(userDetails);
-        when(jwtService.isValid(token)).thenReturn(true);
+        when(userDetailsService.loadUserByUsername("a@a.com")).thenReturn(userDetails);
 
         jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
 
