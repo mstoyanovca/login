@@ -4,12 +4,14 @@ import login.WebSecurityConfiguration;
 import login.model.Role;
 import login.model.User;
 import login.repository.UserRepository;
-import login.service.JwtAuthenticationFilter;
+import login.service.JwtService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -17,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Optional;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -33,7 +36,9 @@ public class AccountControllerTest {
     private PasswordEncoder passwordEncoder;
 
     @MockitoBean
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+    private UserDetailsService userDetailsService;
+    @MockitoBean
+    private JwtService jwtService;
 
     @Test
     @WithMockUser(username = "a@a.com", roles = "USER")
@@ -41,10 +46,17 @@ public class AccountControllerTest {
         User user = new User(1L, "Martin", "Stoyanov", "a@a.com", "password", Role.USER, false);
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
+        when(jwtService.isValid("valid_token")).thenReturn(true);
+        when(jwtService.getEmail("valid_token")).thenReturn("a@a.com");
+
+        UserDetails userDetails = mock(UserDetails.class);
+        when(userDetailsService.loadUserByUsername(user.getEmail())).thenReturn(userDetails);
+
         mockMvc
                 .perform(get("/account")
+                        .header("Authorization", "Bearer valid_token")
                         .accept(MediaType.APPLICATION_JSON)
-                        .with(user("a@a.com").roles("USER"))
+                        .with(user(user.getEmail()).roles("USER"))
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
