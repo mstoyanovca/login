@@ -29,17 +29,18 @@ import java.util.Collections;
 @EnableWebSecurity
 public class WebSecurityConfiguration {
     private final UserRepository userRepository;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Autowired
-    public WebSecurityConfiguration(UserRepository userRepository) {
+    public WebSecurityConfiguration(UserRepository userRepository, JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.userRepository = userRepository;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity,
-                                                   JwtAuthenticationFilter jwtAuthenticationFilter) {
-        httpSecurity
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) {
+        return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .headers(headers -> headers
@@ -53,9 +54,8 @@ public class WebSecurityConfiguration {
                                 .requestMatchers("/account/**").hasAnyAuthority("ADMIN", "USER")
                                 .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return httpSecurity.build();
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 
     @Bean
