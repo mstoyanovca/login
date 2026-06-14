@@ -39,10 +39,10 @@ public class AccountControllerTest {
     @MockitoBean
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    private final User user = new User(1L, "Martin", "Stoyanov", "a@a.com", "password", Role.USER, false);
-
     @BeforeEach
     public void setup() {
+        // 17.2.1 Setting Up MockMvc and Spring Security
+        // https://docs.spring.io/spring-security/site/docs/5.2.0.RELEASE/reference/html/test.html
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(springSecurity())
@@ -52,6 +52,7 @@ public class AccountControllerTest {
     @Test
     @WithMockUser(username = "a@a.com", roles = {"USER", "ADMIN"})
     public void accountTest() throws Exception {
+        final User user = new User(1L, "Martin", "Stoyanov", "a@a.com", "password", Role.USER, false);
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
         mockMvc
