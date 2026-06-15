@@ -66,7 +66,7 @@ public class AccountControllerTest {
 
     @Test
     @WithMockUser(username = "a@a.com", roles = {"USER", "ADMIN"})
-    public void accountAuthorizedTest() throws Exception {
+    public void accountAuthenticatedTest() throws Exception {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
         when(jwtService.isValid("valid_token")).thenReturn(true);
@@ -90,7 +90,7 @@ public class AccountControllerTest {
 
     @Test
     @WithMockUser(username = "a@a.com", roles = {"USER", "ADMIN"})
-    public void accountAuthorizedNotFoundTest() throws Exception {
+    public void accountAuthenticatedNotFoundTest() throws Exception {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
 
         mockMvc.perform(get("/account")
@@ -102,7 +102,7 @@ public class AccountControllerTest {
 
     @Test
     @WithAnonymousUser
-    public void accountUnauthorizedTest() throws Exception {
+    public void accountUnauthenticatedTest() throws Exception {
         mockMvc.perform(get("/account")
                         .header("Authorization", "Bearer invalid_token")
                         .accept(MediaType.APPLICATION_JSON)
@@ -112,7 +112,7 @@ public class AccountControllerTest {
 
     @Test
     @WithMockUser(username = "a@a.com", roles = {"USER", "ADMIN"})
-    public void updateAuthorizedTest() throws Exception {
+    public void updateAuthenticatedTest() throws Exception {
         when(passwordEncoder.encode(user.getPassword())).thenReturn(UUID.randomUUID().toString());
 
         mockMvc
@@ -133,7 +133,7 @@ public class AccountControllerTest {
 
     @Test
     @WithAnonymousUser
-    public void updateUnauthorizedTest() throws Exception {
+    public void updateUnauthenticatedTest() throws Exception {
         mockMvc.perform(put("/update")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(user))
