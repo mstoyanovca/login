@@ -3,7 +3,6 @@ package login.controller;
 import login.WebSecurityConfiguration;
 import login.model.Role;
 import login.model.User;
-import login.model.UserDetailsImpl;
 import login.repository.UserRepository;
 import login.service.JwtService;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,8 +32,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ContextConfiguration
-@WebMvcTest(AccountController.class)
 @Import(WebSecurityConfiguration.class)
+@WebMvcTest(AccountController.class)
 public class AccountControllerTest {
     @Autowired
     private WebApplicationContext context;
@@ -69,12 +68,7 @@ public class AccountControllerTest {
     public void accountAuthenticatedTest() throws Exception {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
-        when(jwtService.isValid("valid_token")).thenReturn(true);
-        when(jwtService.getEmail("valid_token")).thenReturn("a@a.com");
-        when(userDetailsService.loadUserByUsername("a@a.com")).thenReturn(new UserDetailsImpl(user));
-
         mockMvc.perform(get("/account")
-                        .header("Authorization", "Bearer valid_token")
                         .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
@@ -94,7 +88,6 @@ public class AccountControllerTest {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
 
         mockMvc.perform(get("/account")
-                        .header("Authorization", "Bearer valid_token")
                         .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isInternalServerError());
@@ -104,7 +97,6 @@ public class AccountControllerTest {
     @WithAnonymousUser
     public void accountUnauthenticatedTest() throws Exception {
         mockMvc.perform(get("/account")
-                        .header("Authorization", "Bearer invalid_token")
                         .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isForbidden());
