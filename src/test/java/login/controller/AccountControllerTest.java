@@ -1,14 +1,18 @@
 package login.controller;
 
+import login.WebSecurityConfiguration;
 import login.model.Role;
 import login.model.User;
+import login.model.UserDetailsImpl;
 import login.repository.UserRepository;
-import login.service.JwtAuthenticationFilter;
+import login.service.JwtService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -23,7 +27,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -31,6 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ContextConfiguration
 @WebMvcTest(AccountController.class)
+@Import(WebSecurityConfiguration.class)
 public class AccountControllerTest {
     @Autowired
     private WebApplicationContext context;
@@ -44,10 +48,11 @@ public class AccountControllerTest {
     private PasswordEncoder passwordEncoder;
 
     @MockitoBean
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+    private UserDetailsService userDetailsService;
+    @MockitoBean
+    private JwtService jwtService;
 
     private final User user = new User(1L, "Martin", "Stoyanov", "a@a.com", "password", Role.USER, false);
-
 
     @BeforeEach
     public void setup() {
@@ -64,7 +69,12 @@ public class AccountControllerTest {
     public void accountAuthorizedTest() throws Exception {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
+        when(jwtService.isValid("valid_token")).thenReturn(true);
+        when(jwtService.getEmail("valid_token")).thenReturn("a@a.com");
+        when(userDetailsService.loadUserByUsername("a@a.com")).thenReturn(new UserDetailsImpl(user));
+
         mockMvc.perform(get("/account")
+                        .header("Authorization", "Bearer valid_token")
                         .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
@@ -84,6 +94,7 @@ public class AccountControllerTest {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
 
         mockMvc.perform(get("/account")
+                        .header("Authorization", "Bearer valid_token")
                         .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isInternalServerError());
@@ -91,10 +102,12 @@ public class AccountControllerTest {
 
     @Test
     @WithAnonymousUser
-    public void updateUnauthorizedTest() throws Exception {
+    public void accountUnauthorizedTest() throws Exception {
         mockMvc.perform(get("/account")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isUnauthorized());
+                        .header("Authorization", "Bearer invalid_token")
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -104,7 +117,6 @@ public class AccountControllerTest {
 
         mockMvc
                 .perform(put("/update")
-                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(user))
                 )
@@ -121,11 +133,11 @@ public class AccountControllerTest {
 
     @Test
     @WithAnonymousUser
-    public void accountUnauthorizedTest() throws Exception {
+    public void updateUnauthorizedTest() throws Exception {
         mockMvc.perform(put("/update")
-                .with(csrf())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(user))
-        );
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(user))
+                )
+                .andExpect(status().isForbidden());
     }
 }
