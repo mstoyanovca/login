@@ -94,6 +94,15 @@ public class AccountControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "a@a.com", roles = {"BAD_USER", "BAD_ADMIN"})
+    public void accountUnauthorizedTest() throws Exception {
+        mockMvc.perform(get("/account")
+                        .accept(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
     @WithAnonymousUser
     public void accountUnauthenticatedTest() throws Exception {
         mockMvc.perform(get("/account")
@@ -121,6 +130,17 @@ public class AccountControllerTest {
                 .andExpect(jsonPath("$.password").value(""))
                 .andExpect(jsonPath("$.role").value(user.getRole().toString()))
                 .andExpect(jsonPath("$.enabled").value(user.isEnabled()));
+    }
+
+    @Test
+    @WithMockUser(username = "a@a.com", roles = {"BAD_USER", "BAD_ADMIN"})
+    public void updateUnauthorizedTest() throws Exception {
+        mockMvc
+                .perform(put("/update")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(user))
+                )
+                .andExpect(status().isForbidden());
     }
 
     @Test
