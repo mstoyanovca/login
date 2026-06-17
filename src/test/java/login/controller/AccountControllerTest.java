@@ -25,7 +25,7 @@ import tools.jackson.databind.ObjectMapper;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -51,21 +51,20 @@ public class AccountControllerTest {
     @MockitoBean
     private JwtService jwtService;
 
-    private final User user = new User(1L, "Martin", "Stoyanov", "a@a.com", "password", Role.USER, false);
+    private User user;
 
     @BeforeEach
     public void setup() {
-        // 17.2.1 Setting Up MockMvc and Spring Security
-        // https://docs.spring.io/spring-security/site/docs/5.2.0.RELEASE/reference/html/test.html
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
+        user = new User(201L, "Martin", "Stoyanov", "a@a.com", "password", Role.USER, true);
     }
 
     @Test
     @WithMockUser(username = "a@a.com", roles = {"USER", "ADMIN"})
-    public void accountAuthenticatedTest() throws Exception {
+    public void accountAuthenticatedUserTest() throws Exception {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
         mockMvc.perform(get("/account")
@@ -77,43 +76,55 @@ public class AccountControllerTest {
                 .andExpect(jsonPath("$.firstName").value(user.getFirstName()))
                 .andExpect(jsonPath("$.lastName").value(user.getLastName()))
                 .andExpect(jsonPath("$.email").value(user.getEmail()))
-                .andExpect(jsonPath("$.password").value(user.getPassword()))
+                .andExpect(jsonPath("$.password").value(""))
                 .andExpect(jsonPath("$.role").value(user.getRole().toString()))
-                .andExpect(jsonPath("$.enabled").value(user.isEnabled()));
+                .andExpect(jsonPath("$.enabled").value(true));
+
+        verify(userRepository, times(1)).findByEmail(user.getEmail());
+        verifyNoInteractions(passwordEncoder);
     }
 
     @Test
     @WithMockUser(username = "a@a.com", roles = {"USER", "ADMIN"})
-    public void accountAuthenticatedNotFoundTest() throws Exception {
+    public void accountAuthenticatedNotFoundUserTest() throws Exception {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
 
         mockMvc.perform(get("/account")
                         .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isInternalServerError());
+
+        verify(userRepository, times(1)).findByEmail(user.getEmail());
+        verifyNoInteractions(passwordEncoder);
     }
 
     @Test
     @WithMockUser(username = "a@a.com", roles = {"BAD_USER", "BAD_ADMIN"})
-    public void accountUnauthorizedTest() throws Exception {
+    public void accountUnauthorizedUserTest() throws Exception {
         mockMvc.perform(get("/account")
                         .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isForbidden());
+
+        verifyNoInteractions(userRepository);
+        verifyNoInteractions(passwordEncoder);
     }
 
     @Test
     @WithAnonymousUser
-    public void accountUnauthenticatedTest() throws Exception {
+    public void accountUnauthenticatedUserTest() throws Exception {
         mockMvc.perform(get("/account")
                         .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isForbidden());
+
+        verifyNoInteractions(userRepository);
+        verifyNoInteractions(passwordEncoder);
     }
 
     @Test
     @WithMockUser(username = "a@a.com", roles = {"USER", "ADMIN"})
-    public void updateAuthenticatedTest() throws Exception {
+    public void updateAuthenticatedUserTest() throws Exception {
         when(passwordEncoder.encode(user.getPassword())).thenReturn(UUID.randomUUID().toString());
 
         mockMvc
@@ -130,26 +141,51 @@ public class AccountControllerTest {
                 .andExpect(jsonPath("$.password").value(""))
                 .andExpect(jsonPath("$.role").value(user.getRole().toString()))
                 .andExpect(jsonPath("$.enabled").value(user.isEnabled()));
+
+        verify(passwordEncoder, times(1)).encode(user.getPassword());
+        user.setPassword("");
+        verify(userRepository, times(1)).save(user);
     }
 
     @Test
     @WithMockUser(username = "a@a.com", roles = {"BAD_USER", "BAD_ADMIN"})
-    public void updateUnauthorizedTest() throws Exception {
+    public void updateUnauthorizedUserTest() throws Exception {
         mockMvc
                 .perform(put("/update")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(user))
                 )
                 .andExpect(status().isForbidden());
+
+        verifyNoInteractions(userRepository);
+        verifyNoInteractions(passwordEncoder);
     }
 
     @Test
     @WithAnonymousUser
-    public void updateUnauthenticatedTest() throws Exception {
+    public void updateUnauthenticatedUserTest() throws Exception {
         mockMvc.perform(put("/update")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(user))
                 )
                 .andExpect(status().isForbidden());
+
+        verifyNoInteractions(userRepository);
+        verifyNoInteractions(passwordEncoder);
+    }
+
+    @Test
+    @WithMockUser(username = "a@a.com", roles = {"USER", "ADMIN"})
+    public void updateAuthenticatedInvalidUserUserTest() throws Exception {
+        user.setFirstName("");
+
+        mockMvc.perform(put("/update")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(user))
+                )
+                .andExpect(status().isBadRequest());
+
+        verifyNoInteractions(userRepository);
+        verifyNoInteractions(passwordEncoder);
     }
 }

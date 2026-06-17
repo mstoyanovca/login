@@ -30,26 +30,18 @@ public class RegisterController {
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@Valid @RequestBody User user) {
-        try {
-            if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-                LOGGER.info("{} is registered", user.getEmail());
-                return ResponseEntity.status(HttpStatus.CONFLICT).build();
-            } else {
-                user.setPassword(Objects.requireNonNull(passwordEncoder.encode(user.getPassword())));
-                // TODO: email an account activation link, valid for a few minutes, to enable the user:
-                user.setEnabled(true);
-                user.setRole(Role.USER);
-                userRepository.save(user);
-                user.setPassword("");
-                LOGGER.info("Registered: {}", user.toString());
-                return ResponseEntity.status(HttpStatus.CREATED).body(user);
-            }
-        } catch (IllegalArgumentException e) {
-            LOGGER.info("User registration illegal argument exception: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        } catch (Exception e) {
-            LOGGER.info("User registration server error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            LOGGER.info("{} is registered", user.getEmail());
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        } else {
+            user.setPassword(Objects.requireNonNull(passwordEncoder.encode(user.getPassword())));
+            // TODO: email an account activation link, valid for a few minutes, to enable the user:
+            user.setEnabled(true);
+            user.setRole(Role.USER);
+            userRepository.save(user);
+            user.setPassword("");
+            LOGGER.info("Registered: {}", user.toString());
+            return ResponseEntity.status(HttpStatus.CREATED).body(user);
         }
     }
 }
