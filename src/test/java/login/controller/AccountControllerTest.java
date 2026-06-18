@@ -63,7 +63,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "a@a.com", roles = {"USER", "ADMIN"})
+    @WithMockUser(username = "a@a.com", authorities = {"USER", "ADMIN"})
     public void accountAuthenticatedUserTest() throws Exception {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
@@ -85,7 +85,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "a@a.com", roles = {"USER", "ADMIN"})
+    @WithMockUser(username = "a@a.com", authorities = {"USER", "ADMIN"})
     public void accountAuthenticatedNotFoundUserTest() throws Exception {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
 
@@ -99,7 +99,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "a@a.com", roles = {"BAD_USER", "BAD_ADMIN"})
+    @WithMockUser(username = "a@a.com", authorities = {"BAD_USER", "BAD_ADMIN"})
     public void accountUnauthorizedUserTest() throws Exception {
         mockMvc.perform(get("/account")
                         .accept(MediaType.APPLICATION_JSON)
@@ -123,7 +123,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "a@a.com", roles = {"USER", "ADMIN"})
+    @WithMockUser(username = "a@a.com", authorities = {"USER", "ADMIN"})
     public void updateAuthenticatedUserTest() throws Exception {
         when(passwordEncoder.encode(user.getPassword())).thenReturn(UUID.randomUUID().toString());
 
@@ -148,7 +148,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "a@a.com", roles = {"BAD_USER", "BAD_ADMIN"})
+    @WithMockUser(username = "a@a.com", authorities = {"BAD_USER", "BAD_ADMIN"})
     public void updateUnauthorizedUserTest() throws Exception {
         mockMvc
                 .perform(put("/update")
@@ -175,7 +175,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "a@a.com", roles = {"USER", "ADMIN"})
+    @WithMockUser(username = "a@a.com", authorities = {"USER", "ADMIN"})
     public void updateAuthenticatedInvalidUserUserTest() throws Exception {
         user.setFirstName("");
 
