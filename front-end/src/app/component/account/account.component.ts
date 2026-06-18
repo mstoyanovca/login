@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {AuthService} from "@service/authentication/auth.service";
 import {HttpClient} from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 import {environment} from "@environment/environment";
 import {PasswordMatchDirective} from '@directive/password-match.directive';
@@ -40,7 +41,7 @@ export class AccountComponent {
         this.authService.logout();
     }
 
-    onSubmit(): void {
+    onSubmit(form: NgForm): void {
         this.httpClient
             .put<User>(this.updateUrl, this.user, {responseType: "json"})
             .subscribe({
@@ -48,5 +49,8 @@ export class AccountComponent {
                     this.user = user;
                 }
             });
+        // clear the form validation for empty password fields after submit:
+        this.confirmedPassword = '';
+        form.resetForm();
     }
 }

@@ -18,7 +18,7 @@
         </div>
     </nav>
 
-    <form (ngSubmit)="onSubmit()" #accountForm="ngForm">
+    <form (ngSubmit)="onSubmit(accountForm)" #accountForm="ngForm">
         <div class="mx-4 col col-lg-4 col-md-6 mt-4">
             <label for="firstName">First name</label>
             <input type="text" class="form-control form-control-sm" id="firstName" name="firstName" [(ngModel)]="user.firstName" #firstName="ngModel" required>
