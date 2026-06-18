@@ -29,17 +29,15 @@ import java.util.Collections;
 @EnableWebSecurity
 public class WebSecurityConfiguration {
     private final UserRepository userRepository;
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Autowired
-    public WebSecurityConfiguration(UserRepository userRepository, JwtAuthenticationFilter jwtAuthenticationFilter) {
+    public WebSecurityConfiguration(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, JwtAuthenticationFilter jwtAuthenticationFilter) {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
