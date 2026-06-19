@@ -1,7 +1,6 @@
 package login.controller;
 
 import login.WebSecurityConfiguration;
-import login.model.Role;
 import login.model.User;
 import login.repository.UserRepository;
 import login.service.JwtService;
@@ -22,6 +21,7 @@ import tools.jackson.databind.ObjectMapper;
 
 import java.util.Optional;
 
+import static login.model.Role.ROLE_USER;
 import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -53,7 +53,7 @@ public class ResetPasswordControllerTest {
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
-        user = new User(0L, "", "", "c@d.com", "", Role.USER, false);
+        user = new User(0L, "", "", "c@d.com", "", ROLE_USER, false);
     }
 
     @Test

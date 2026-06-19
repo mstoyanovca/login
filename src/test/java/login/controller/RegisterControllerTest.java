@@ -1,7 +1,6 @@
 package login.controller;
 
 import login.WebSecurityConfiguration;
-import login.model.Role;
 import login.model.User;
 import login.repository.UserRepository;
 import login.service.JwtService;
@@ -24,6 +23,8 @@ import tools.jackson.databind.ObjectMapper;
 import java.util.Optional;
 import java.util.UUID;
 
+import static login.model.Role.ROLE_ADMIN;
+import static login.model.Role.ROLE_USER;
 import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -59,7 +60,7 @@ public class RegisterControllerTest {
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
-        user = new User(101L, "Martin", "Stoyanov", "abc@abc.com", "password", Role.ADMIN, false);
+        user = new User(101L, "Martin", "Stoyanov", "abc@abc.com", "password", ROLE_ADMIN, false);
     }
 
     @Test
@@ -97,14 +98,14 @@ public class RegisterControllerTest {
                 .andExpect(jsonPath("$.lastName").value(user.getLastName()))
                 .andExpect(jsonPath("$.email").value(user.getEmail()))
                 .andExpect(jsonPath("$.password").value(""))
-                .andExpect(jsonPath("$.role").value(Role.USER.toString()))
+                .andExpect(jsonPath("$.role").value(ROLE_USER.toString()))
                 .andExpect(jsonPath("$.enabled").value(true));
 
         verify(userRepository, times(1)).findByEmail(user.getEmail());
         verify(passwordEncoder, times(1)).encode(user.getPassword());
         user.setEnabled(true);
         user.setPassword("");
-        user.setRole(Role.USER);
+        user.setRole(ROLE_USER);
         verify(userRepository, times(1)).save(user);
     }
 

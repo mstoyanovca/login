@@ -1,6 +1,5 @@
 package login.repository;
 
-import login.model.Role;
 import login.model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 
+import static login.model.Role.ROLE_ADMIN;
+import static login.model.Role.ROLE_USER;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
@@ -18,7 +19,7 @@ public class UserRepositoryTest {
 
     @BeforeEach
     public void beforeEach() {
-        testUser = new User(null, "Martin", "Stoyanov", "abc@gmail.com", "password", Role.ADMIN, true);
+        testUser = new User(null, "Martin", "Stoyanov", "abc@gmail.com", "password", ROLE_ADMIN, true);
         userRepository.save(testUser);
     }
 
@@ -74,7 +75,7 @@ public class UserRepositoryTest {
         savedUser.setLastName("Smith");
         savedUser.setEmail("a@a.com");
         savedUser.setPassword("change_it");
-        savedUser.setRole(Role.USER);
+        savedUser.setRole(ROLE_USER);
         savedUser.setEnabled(true);
         userRepository.save(savedUser);
 
@@ -85,7 +86,7 @@ public class UserRepositoryTest {
         assertEquals("Smith", savedUser.getLastName());
         assertEquals("a@a.com", savedUser.getEmail());
         assertEquals("change_it", savedUser.getPassword());
-        assertEquals(Role.USER, savedUser.getRole());
+        assertEquals(ROLE_USER, savedUser.getRole());
         assertTrue(savedUser.isEnabled());
     }
 }

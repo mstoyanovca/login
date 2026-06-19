@@ -1,7 +1,6 @@
 package login.controller;
 
 import login.WebSecurityConfiguration;
-import login.model.Role;
 import login.model.User;
 import login.repository.UserRepository;
 import login.service.JwtService;
@@ -24,6 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import tools.jackson.databind.ObjectMapper;
 
+import static login.model.Role.ROLE_USER;
 import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -50,7 +50,7 @@ public class LoginControllerTest {
     @MockitoBean
     private UserDetailsService userDetailsService;
 
-    private final User user = new User(45L, "Martin", "Stoyanov", "efg@lmn.com", "password", Role.USER, true);
+    private final User user = new User(45L, "Martin", "Stoyanov", "efg@lmn.com", "password", ROLE_USER, true);
 
     @BeforeEach
     public void setup() {

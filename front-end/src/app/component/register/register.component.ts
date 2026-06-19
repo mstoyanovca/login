@@ -16,7 +16,7 @@ import {User} from '@model/user';
     styleUrl: 'register.component.css'
 })
 export class RegisterComponent {
-    user: User = new User(null, '', '', '', '', 'USER', false);
+    user: User = new User(null, '', '', '', '', 'ROLE_USER', false);
     confirmedPassword: string = '';
     showPassword: boolean = false;
     registrationError: boolean = false;

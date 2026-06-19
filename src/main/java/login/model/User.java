@@ -8,6 +8,8 @@ import org.jspecify.annotations.NonNull;
 
 import java.util.Objects;
 
+import static login.model.Role.ROLE_USER;
+
 @Entity
 // user is a preserved word in H2:
 @Table(name = "\"user\"", indexes = {@Index(name = "idx_email", columnList = "email")})
@@ -42,7 +44,7 @@ public class User {
         lastName = "";
         email = "";
         password = "";
-        role = Role.USER;
+        role = ROLE_USER;
         enabled = false;
     }
 

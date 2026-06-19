@@ -13,7 +13,7 @@ import {User} from "@model/user";
     styleUrl: 'forgot-password.component.css'
 })
 export class ForgotPasswordComponent {
-    user: User = new User(0, '', '', '', '', 'USER', false);
+    user: User = new User(0, '', '', '', '', 'ROLE_USER', false);
     linkSent: boolean = false;
     private forgotPasswordUrl: string = `${environment.apiUrl}/reset-password`;
     private httpClient: HttpClient = inject(HttpClient);

@@ -1,7 +1,6 @@
 package login.controller;
 
 import login.WebSecurityConfiguration;
-import login.model.Role;
 import login.model.User;
 import login.repository.UserRepository;
 import login.service.JwtService;
@@ -25,6 +24,7 @@ import tools.jackson.databind.ObjectMapper;
 import java.util.Optional;
 import java.util.UUID;
 
+import static login.model.Role.ROLE_USER;
 import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -59,11 +59,11 @@ public class AccountControllerTest {
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
-        user = new User(201L, "Martin", "Stoyanov", "a@a.com", "password", Role.USER, true);
+        user = new User(201L, "Martin", "Stoyanov", "a@a.com", "password", ROLE_USER, true);
     }
 
     @Test
-    @WithMockUser(username = "a@a.com", authorities = {"USER", "ADMIN"})
+    @WithMockUser(username = "a@a.com", roles = {"USER", "ADMIN"})
     public void accountAuthenticatedUserTest() throws Exception {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
@@ -85,7 +85,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "a@a.com", authorities = {"USER", "ADMIN"})
+    @WithMockUser(username = "a@a.com", roles = {"USER", "ADMIN"})
     public void accountAuthenticatedNotFoundUserTest() throws Exception {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
 
@@ -99,7 +99,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "a@a.com", authorities = {"BAD_USER", "BAD_ADMIN"})
+    @WithMockUser(username = "a@a.com", roles = {"BAD_USER", "BAD_ADMIN"})
     public void accountUnauthorizedUserTest() throws Exception {
         mockMvc.perform(get("/account")
                         .accept(MediaType.APPLICATION_JSON)
@@ -123,7 +123,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "a@a.com", authorities = {"USER", "ADMIN"})
+    @WithMockUser(username = "a@a.com", roles = {"USER", "ADMIN"})
     public void updateAuthenticatedUserTest() throws Exception {
         when(passwordEncoder.encode(user.getPassword())).thenReturn(UUID.randomUUID().toString());
 
@@ -148,7 +148,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "a@a.com", authorities = {"BAD_USER", "BAD_ADMIN"})
+    @WithMockUser(username = "a@a.com", roles = {"BAD_USER", "BAD_ADMIN"})
     public void updateUnauthorizedUserTest() throws Exception {
         mockMvc
                 .perform(put("/update")
@@ -175,7 +175,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "a@a.com", authorities = {"USER", "ADMIN"})
+    @WithMockUser(username = "a@a.com", roles = {"USER", "ADMIN"})
     public void updateAuthenticatedInvalidUserUserTest() throws Exception {
         user.setFirstName("");
 
