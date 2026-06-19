@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
+      - name: Checkout source code
         uses: actions/checkout@v4
 
       - name: Set up JDK 26
@@ -16,20 +16,20 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
 
-      - name: Make Gradle Wrapper Executable
+      - name: Make Gradle Wrapper executable
         run: chmod +x ./gradlew
 
-      - name: Run Tests with Gradle Wrapper
+      - name: Run tests with Gradle Wrapper
         run: ./gradlew test
 
   frontend-tests:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Source Code
+      - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Set up Node.js 26
         uses: actions/setup-node@v4
         with:
           node-version: '26'
@@ -41,5 +41,5 @@ jobs:
         run: npm ci
 
       - name: Run Angular Tests
-        working-directory: ./frontend
+        working-directory: ../../front-end
         run: npm run test-ci
