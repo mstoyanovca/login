@@ -1,13 +1,8 @@
-name: Spring Boot CI (Gradle)
-
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+name: Login CI
+on: [ push, pull_request ]
 
 jobs:
-  test:
+  backend-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,3 +21,25 @@ jobs:
 
       - name: Run Tests with Gradle Wrapper
         run: ./gradlew test
+
+  frontend-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '26'
+          cache: 'npm'
+          cache-dependency-path: ../../front-end/package-lock.json
+
+      - name: Install Dependencies
+        working-directory: ../../front-end
+        run: npm ci
+
+      - name: Run Angular Tests
+        working-directory: ./frontend
+        run: npm run test-ci
