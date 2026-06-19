@@ -2,19 +2,18 @@ name: Login CI
 on: [ push, pull_request ]
 
 jobs:
-  backend-tests:
+  spring-boot-tests:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 26
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           java-version: '26'
-          distribution: 'temurin'
           cache: 'gradle'
+          distribution: 'temurin'
 
       - name: Make Gradle Wrapper executable
         run: chmod +x ./gradlew
@@ -22,9 +21,8 @@ jobs:
       - name: Run tests with Gradle Wrapper
         run: ./gradlew test
 
-  frontend-tests:
+  angular-tests:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout source code
         uses: actions/checkout@v5
@@ -40,6 +38,9 @@ jobs:
         working-directory: './front-end'
         run: npm ci
 
-      - name: Run Angular Tests
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Angular tests
         working-directory: './front-end'
-        run: npm run test:ci
+        run: npm run test-ci
