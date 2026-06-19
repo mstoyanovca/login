@@ -43,4 +43,4 @@ jobs:
 
       - name: Run Angular tests
         working-directory: './front-end'
-        run: npm run test-ci
+        run: npm run test-ci -- --browser=chromium
