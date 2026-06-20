@@ -42,5 +42,5 @@ jobs:
         run: npx playwright install chromium --with-deps
 
       - name: Run Angular tests
-        #working-directory: './front-end'
+        working-directory: './front-end'
         run: npm run test-ci
