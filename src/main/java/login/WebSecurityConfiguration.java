@@ -73,7 +73,7 @@ public class WebSecurityConfiguration {
         return configuration.getAuthenticationManager();
     }
 
-    @Profile("local")
+    @Profile({"local", "test"})
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
