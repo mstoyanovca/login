@@ -6,14 +6,14 @@ Bootstrap 5/Angular 21/Java 26/Spring Boot 4 SPA with JWT login, created to keep
 
 - git clone from GitHub
 - frontend:
-- npm install
-- ng test
-- npm start, open at http://localhost:4200/, or:
-- ng serve --open
-- npx kill-port 4200
+  - npm install
+  - ng test
+  - npm start, open at http://localhost:4200/, or:
+  - ng serve --open
+  - npx kill-port 4200
 - backend:
-- start main() in LoginApplication with VM option -Dspring.profiles.active=local
-- run tests locally with environment variable SPRING_PROFILES_ACTIVE=test
+  - start main() in LoginApplication with VM option -Dspring.profiles.active=local
+  - run tests locally with environment variable SPRING_PROFILES_ACTIVE=test
 
 ### Frontend Features
 
