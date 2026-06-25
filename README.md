@@ -45,3 +45,4 @@ Bootstrap 5/Angular 21/Java 26/Spring Boot 4 SPA with JWT login, created to keep
 - add MySql
 - deploy to cloud
 - add CD GitHub action
+- vault all secrets
