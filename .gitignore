@@ -4,3 +4,4 @@ build/
 data/
 front-end/.angular
 front-end/node_modules
+src/main/resources/secrets-prod.properties
