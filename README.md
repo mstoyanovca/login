@@ -42,17 +42,23 @@ Bootstrap 5/Angular 21/Java 26/Spring Boot 4 SPA with JWT login, created to keep
 - CI pipeline in GitHub Actions runs all Spring Boot and Angular tests
 - CD pipeline in OpenShift pulls the master branch from GitHub
 
+### Creating the Spring Boot service on OpenShift
+
+- select for resource "Deployment"
+- check "Create a Route to the Application"
+
 ### MYSQL debugging on OpenShift
 
 - check the mysql pod is "Running":
     - oc get pods
     - oc describe pod mysql-1-vn8fm
-- go to the mysql pod terminal:
     - env | grep MYSQL
+- from the mysql pod terminal:
+    - mysql -u $MYSQL_USER -p
+    - ```mysql -u $MYSQL_USER -h $MYSQL_SERVICE_HOST -P $MYSQL_SERVICE_PORT -p```
     - login as root, if needed: mysql -u root -p
-- ```mysql -u $MYSQL_USER -h $MYSQL_SERVICE_HOST -P $MYSQL_SERVICE_PORT -p```
-- use login_db;
-- show tables;
+    - use login_db;
+    - show tables;
 
 ### TODO
 
