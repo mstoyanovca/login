@@ -1,16 +1,14 @@
 # Build
-FROM node:20-alpine AS build
+FROM node:lts-alpine AS build
 WORKDIR /app
-
 COPY package*.json ./
-RUN npm ci
-
+RUN npm install
 COPY . .
 RUN npm run build --configuration=production
 
 # Serve
 FROM nginxinc/nginx-unprivileged:alpine-slim
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /app/dist/front-end/browser /usr/share/nginx/html
 
 EXPOSE 8080
