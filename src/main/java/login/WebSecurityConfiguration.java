@@ -84,8 +84,7 @@ public class WebSecurityConfiguration {
         configuration.setAllowedHeaders(Collections.singletonList("*"));
 
         if (Arrays.asList(environment.getActiveProfiles()).contains("prod")) {
-            // TODO: set this to the Angular endpoint on OpenShift:
-            configuration.setAllowedOrigins(List.of("*"));
+            configuration.setAllowedOrigins(List.of("http://login-git-mstoyanovca-dev.apps.rm2.thpm.p1.openshiftapps.com"));
         } else {
             configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
         }
