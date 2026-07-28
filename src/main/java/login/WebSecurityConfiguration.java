@@ -3,6 +3,8 @@ package login;
 import login.model.UserDetailsImpl;
 import login.repository.UserRepository;
 import login.service.JwtAuthenticationFilter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +33,7 @@ import java.util.List;
 @EnableWebSecurity
 public class WebSecurityConfiguration {
     private final UserRepository userRepository;
+    private static final Logger LOGGER = LogManager.getLogger();
 
     @Autowired
     public WebSecurityConfiguration(UserRepository userRepository) {
@@ -87,6 +90,7 @@ public class WebSecurityConfiguration {
             // TODO: restore this:
             // configuration.setAllowedOrigins(List.of("http://login-git-mstoyanovca-dev.apps.rm2.thpm.p1.openshiftapps.com"));
             configuration.setAllowedOrigins(List.of("*"));
+            LOGGER.info("allowed all cors origins for PROD");
         } else {
             configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
         }
