@@ -84,7 +84,9 @@ public class WebSecurityConfiguration {
         configuration.setAllowedHeaders(Collections.singletonList("*"));
 
         if (Arrays.asList(environment.getActiveProfiles()).contains("prod")) {
-            configuration.setAllowedOrigins(List.of("http://login-git-mstoyanovca-dev.apps.rm2.thpm.p1.openshiftapps.com"));
+            // TODO: restore this:
+            // configuration.setAllowedOrigins(List.of("http://login-git-mstoyanovca-dev.apps.rm2.thpm.p1.openshiftapps.com"));
+            configuration.setAllowedOrigins(List.of("*"));
         } else {
             configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
         }
