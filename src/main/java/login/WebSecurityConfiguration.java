@@ -55,7 +55,7 @@ public class WebSecurityConfiguration {
                 )
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
-                                .requestMatchers("/login/**", "/register/**", "/reset-password/**").permitAll()
+                                .requestMatchers("/login/**", "/register/**", "/reset-password/**", "/test/**").permitAll()
                                 .requestMatchers("/account/**", "/update/**").hasAnyRole("ADMIN", "USER")
                                 .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -87,12 +87,11 @@ public class WebSecurityConfiguration {
         configuration.setAllowedHeaders(Collections.singletonList("*"));
 
         if (Arrays.asList(environment.getActiveProfiles()).contains("prod")) {
-            // TODO: restore this:
-            // configuration.setAllowedOrigins(List.of("http://login-git-mstoyanovca-dev.apps.rm2.thpm.p1.openshiftapps.com"));
-            configuration.setAllowedOrigins(List.of("*"));
-            LOGGER.info("allowed all cors origins for PROD");
+            configuration.setAllowedOrigins(List.of("http://angular-client-mstoyanovca-dev.apps.rm2.thpm.p1.openshiftapps.com"));
+            LOGGER.info("allowed cors origin angular-client-mstoyanovca-dev.apps.rm2.thpm.p1.openshiftapps.com for PROD");
         } else {
             configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+            LOGGER.info("allowed cors origin http://localhost:4200 for LOCAL");
         }
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
