@@ -46,6 +46,7 @@ Bootstrap 5/Angular 21/Java 26/Spring Boot 4 SPA with JWT login, created to keep
 
 - select for resource "Deployment"
 - check "Create a Route to the Application"
+- select Edge TLS Termination via OpenShift Routes
 
 ### MYSQL debugging on OpenShift
 
@@ -64,6 +65,7 @@ Bootstrap 5/Angular 21/Java 26/Spring Boot 4 SPA with JWT login, created to keep
 
 - select for resource "Deployment"
 - check "Create a Route to the Application"
+- select Edge TLS Termination via OpenShift Routes
 - set cors origin in WebSecurityConfiguration
 - set apiUrl in environment.prod.ts
 

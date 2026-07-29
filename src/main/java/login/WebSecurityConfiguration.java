@@ -84,7 +84,7 @@ public class WebSecurityConfiguration {
         configuration.setAllowedHeaders(Collections.singletonList("*"));
 
         if (Arrays.asList(environment.getActiveProfiles()).contains("prod")) {
-            configuration.setAllowedOrigins(List.of("http://angular-client-mstoyanovca-dev.apps.rm2.thpm.p1.openshiftapps.com"));
+            configuration.setAllowedOrigins(List.of("https://angular-client-mstoyanovca-dev.apps.rm2.thpm.p1.openshiftapps.com"));
         } else {
             configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
         }
