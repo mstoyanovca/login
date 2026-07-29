@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,10 +36,5 @@ public class LoginController {
             LOGGER.info("Bad credentials for {}", user.getEmail());
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-    }
-
-    @GetMapping("/test")
-    public String test() {
-        return "test REST endpoint";
     }
 }

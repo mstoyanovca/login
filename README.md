@@ -64,7 +64,8 @@ Bootstrap 5/Angular 21/Java 26/Spring Boot 4 SPA with JWT login, created to keep
 
 - select for resource "Deployment"
 - check "Create a Route to the Application"
-- set API_URL env to the Spring Boot Route URL
+- set cors origin in WebSecurityConfiguration
+- set apiUrl in environment.prod.ts
 
 ### TODO
 

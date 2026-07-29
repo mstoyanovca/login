@@ -3,8 +3,6 @@ package login;
 import login.model.UserDetailsImpl;
 import login.repository.UserRepository;
 import login.service.JwtAuthenticationFilter;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +31,6 @@ import java.util.List;
 @EnableWebSecurity
 public class WebSecurityConfiguration {
     private final UserRepository userRepository;
-    private static final Logger LOGGER = LogManager.getLogger();
 
     @Autowired
     public WebSecurityConfiguration(UserRepository userRepository) {
@@ -55,7 +52,7 @@ public class WebSecurityConfiguration {
                 )
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
-                                .requestMatchers("/login/**", "/register/**", "/reset-password/**", "/test/**").permitAll()
+                                .requestMatchers("/login/**", "/register/**", "/reset-password/**").permitAll()
                                 .requestMatchers("/account/**", "/update/**").hasAnyRole("ADMIN", "USER")
                                 .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -88,10 +85,8 @@ public class WebSecurityConfiguration {
 
         if (Arrays.asList(environment.getActiveProfiles()).contains("prod")) {
             configuration.setAllowedOrigins(List.of("http://angular-client-mstoyanovca-dev.apps.rm2.thpm.p1.openshiftapps.com"));
-            LOGGER.info("allowed cors origin angular-client-mstoyanovca-dev.apps.rm2.thpm.p1.openshiftapps.com for PROD");
         } else {
             configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
-            LOGGER.info("allowed cors origin http://localhost:4200 for LOCAL");
         }
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
