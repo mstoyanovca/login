@@ -45,8 +45,9 @@ Bootstrap 5/Angular 21/Java 26/Spring Boot 4 SPA with JWT login, created to keep
 ### Creating the Spring Boot service on OpenShift
 
 - select for resource "Deployment"
-- check "Create a Route to the Application"
-- select Edge TLS Termination via OpenShift Routes
+- check "Create a route"
+- select "Secure Route", TLS termination Edge, Insecure traffic Redirect
+- set OpenShift env variables: SPRING_PROFILES_ACTIVE, JWT_SECRET, MYSQL_USER, MYSQL_PASSWORD
 
 ### MYSQL debugging on OpenShift
 
@@ -64,8 +65,9 @@ Bootstrap 5/Angular 21/Java 26/Spring Boot 4 SPA with JWT login, created to keep
 ### Creating the Angular service on OpenShift
 
 - select for resource "Deployment"
-- check "Create a Route to the Application"
-- select Edge TLS Termination via OpenShift Routes
+- check "Create a route"
+- select "Secure Route", TLS termination Edge, Insecure traffic Redirect
+- set OpenShift env variables: API_URL
 - set cors origin in WebSecurityConfiguration
 - set apiUrl in environment.prod.ts
 
