@@ -75,6 +75,3 @@ Bootstrap 5/Angular 21/Java 26/Spring Boot 4 SPA with JWT login, created to keep
 
 - extract Client model class from User entity class
 - implement access/refresh token
-- implement https
-- set up logging to file
-- set up metrics
